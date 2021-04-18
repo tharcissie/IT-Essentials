@@ -1,15 +1,55 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.utils import timezone
+from django.conf import settings
 
 
 
+class UserProfileManager(BaseUserManager):
 
-# Try to configure using django user model
+    def create_user(self, email, name, profile_image, password=None):
+        if not email:
+            raise ValueError('Student must have an email address')
 
-# class Student(models.Model):
-#     name =
-#     email =
-#     profile_image =
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name,profile_image=profile_image)
+        
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+
+    def create_superuser(self, email, name, password):
+        if not email:
+            raise ValueError('User must have an email address')
+
+        email = self.normalize_email(email)
+        user = self.model(email=email, name=name)
+        user.set_password(password)
+        user.is_superuser = True
+        user.is_staff = True
+        user.save(using=self._db)
+        return user
+
+
+class StudentProfile(AbstractBaseUser, PermissionsMixin):
+    email = models.EmailField(unique=True, max_length=30)
+    name = models.CharField(max_length=250)
+    profile_image = models.ImageField(upload_to='profile_images')
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(default=timezone.now)
+    last_login = models.DateTimeField(null=True)
+
+    objects = UserProfileManager()
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name']
+
+    def get_full_name(self):
+        return self.name
+
 
 
 class Chapter(models.Model):
@@ -25,7 +65,7 @@ class Exam(models.Model):
     chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
     question_number = models.PositiveIntegerField()
     marks = models.IntegerField()
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):
         return '{} Exam  - {}'.format(self.chapter.name, self.student)
@@ -48,7 +88,7 @@ class Question(models.Model):
 
 
 class Result(models.Model):
-    student = models.ForeignKey(User,on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
     exam = models.ForeignKey(Exam,on_delete=models.CASCADE)
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
