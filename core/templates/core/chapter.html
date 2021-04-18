@@ -1,0 +1,7 @@
+{% extends "index.html" %}
+
+{% block container %}
+    <h3>chapter</h3>
+    <p>{{chapter.content}}</p>
+    <p><a href="{% url 'exam' chapter.exam.pk %}">exam</a></p>
+{% endblock container %}

@@ -24,5 +24,16 @@ def signup(request):
 
 @login_required(login_url='login')
 def account(request):
-    return render(request, 'core/student_account.html')
+    chapters = Chapter.objects.all()
+    return render(request, 'core/account.html', {'chapters':chapters})
 
+@login_required(login_url='login')
+def chapter(request, pk):
+    chapter = get_object_or_404(Chapter, pk=pk)
+    return render(request, 'core/chapter.html', {'chapter':chapter})
+
+@login_required(login_url='login')
+def exam(request, pk):
+    exam = get_object_or_404(Exam, pk=pk)
+    question = Question.objects.filter(exam=exam)
+    return render(request, 'core/exam.html', {'exam':exam,'question':question})
