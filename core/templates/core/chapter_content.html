@@ -1,0 +1,37 @@
+{% extends "core/index.html" %}
+
+{% block container %}
+
+<style>
+.contents{
+    width: 900px;
+    margin: 40px;
+}
+.title{
+    width: 900px;
+    margin: 40px; 
+}
+.image{
+    width: 500px;
+    margin: 0px 70px;
+    margin-bottom: 30px;
+}
+.button{
+    padding: 10px;
+    background: darkblue;
+    color: white;
+    width: 154px;
+    height: 46px;
+    margin-top: 30px;
+}
+
+</style>
+
+    <div class="contents">
+       <h3 class="title">{{chapter.name}}</h3>
+       <image class="image" src="{{chapter.cover_image.url}}" />
+       <p>{{chapter.content}}</p>
+
+       <button class="button"><a href="{% url 'chapter_exam' chapter.id %}">Take Exam</a></button>
+    </div>
+{% endblock container %}

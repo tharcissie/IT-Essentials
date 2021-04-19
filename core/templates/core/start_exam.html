@@ -1,0 +1,108 @@
+{% extends "core/index.html" %}
+
+{% block container %}
+
+<style>
+.contents{
+    width: 900px;
+    margin: 40px;
+}
+.title{
+    width: 900px;
+    margin: 40px; 
+}
+.title-questions{
+    width: 900px;
+    margin: 170px 40px 40px 40px; 
+}
+.question-name{
+    width:900px;
+    margin:40px;
+    font-weight:400;
+}
+.question-answer{
+    width:900px;
+    margin:5px 60px;
+    font-weight:400;
+}
+.image{
+    width: 900px;
+    margin: 0px 70px;
+    margin-bottom: 30px;
+}
+.button{
+    padding: 10px;
+    background: darkblue;
+    color: white;
+    width: 154px;
+    height: 46px;
+    margin-top: 30px;
+    margin-left: 40px;
+
+}
+
+</style>
+
+<div class="contents">
+  <h3 class="title"> Number of Questions: {{number_of_questions}}</h3>
+  <h5 class="title"> Exam Marks: {{total_marks}}</h5>
+  <h5 class="title"> Chapter Name: {{exam.chapter}}</h5>
+
+
+  <h2 class="title-questions">Questions</h2>
+
+  <form class="form" autocomplete="off" onsubmit="return saveAns()"  action="/calculate-marks" method="POST">
+    {% csrf_token %}
+    {% for question in questions%}
+    <h3 class="text-info">{{ forloop.counter }}. {{question.name}}</h3><h4 style="text-align: right;">[Marks {{question.score}}]</h4>
+    
+        <input type="hidden" name="csrfmiddlewaretoken" value="C24rUotmdHawVQJL3KrqiWxvti8UffOFYUc8TRbZtLt36AVLdP3jbkzUVe3beRAa">
+        
+        
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{question.answer1}}" value="Answer1">
+            <label class="form-check-label" for="answer1">
+              {{question.answer1}}
+            </label>
+          </div>
+
+        
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{question.answer2}}" value="Answer2">
+            <label class="form-check-label" for="answer2">
+              {{question.answer2}}
+            </label>
+          </div>
+
+        
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{question.answer3}}" value="Answer3">
+            <label class="form-check-label" for="answer3">
+              {{question.answer3}}
+            </label>
+          </div>
+
+        
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{question.answer4}}" value="Answer4">
+            <label class="form-check-label" for="answer4">
+              {{question.answer4}}
+            </label>
+          </div>
+
+
+          <div class="form-check mx-4">
+            <input class="form-check-input" type="radio" name="{{ forloop.counter }}" id="{{question.answer5}}" value="Answer5">
+            <label class="form-check-label" for="answer5">
+              {{question.answer5}}
+            </label>
+          </div>
+
+        {% endfor %}
+        <input class="btn btn-info btn-lg"   type="submit" value="Submit">  
+    </form>
+
+
+
+    </div>
+{% endblock container %}

@@ -20,15 +20,18 @@ class Chapter(models.Model):
     def __str__(self):
         return self.name
 
+    def snippet(self):
+        return self.content[:150]
+
 
 class Exam(models.Model):
     chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
     question_number = models.PositiveIntegerField()
     marks = models.IntegerField()
-    student = models.ForeignKey(User, on_delete=models.CASCADE)
+    # student = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{} Exam  - {}'.format(self.chapter.name, self.student)
+        return '{} Exam'.format(self.chapter.name)
 
 
 class Question(models.Model):
