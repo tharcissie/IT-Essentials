@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block container %}
+    <h3>chapter</h3>
+    <p>exam:{{exam.chapter}}</p>
+    <hr>
+<b>question</b>
+{% for question in question %}
+
+    <p>
+        {{question.name}}
+    </p>
+
+{% endfor %}
+
+{% endblock container %}

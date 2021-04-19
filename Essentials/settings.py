@@ -69,7 +69,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Essentials.wsgi.application'
-
+AUTH_USER_MODEL = "core.StudentProfile" 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -124,6 +124,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGOUT_REDIRECT_URL = 'homepage'
+LOGIN_REDIRECT_URL = 'account'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

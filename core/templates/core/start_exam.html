@@ -1,4 +1,4 @@
-{% extends "core/index.html" %}
+{% extends "index.html" %}
 
 {% block container %}
 
@@ -51,7 +51,7 @@
 
   <h2 class="title-questions">Questions</h2>
 
-  <form class="form" autocomplete="off" onsubmit="return saveAns()"  action="/calculate-marks" method="POST">
+  <form class="form" autocomplete="off" onsubmit="return saveAns()"  action="/it-essentials/calculate-marks" method="POST">
     {% csrf_token %}
     {% for question in questions%}
     <h3 class="text-info">{{ forloop.counter }}. {{question.name}}</h3><h4 style="text-align: right;">[Marks {{question.score}}]</h4>
@@ -101,8 +101,28 @@
         {% endfor %}
         <input class="btn btn-info btn-lg"   type="submit" value="Submit">  
     </form>
+</div>
 
+<script> 
+    function saveAns(){  
 
+        var ele = document.getElementsByTagName('input'); 
+        for(i = 0; i < ele.length; i++) { 
+            if(ele[i].type="radio") { 
+                if(ele[i].checked){        
+                  setCookie(ele[i].name,ele[i].value,3)
+                }
+            } 
+        } 
+          
+    }
+    
+    function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
 
-    </div>
+</script> 
 {% endblock container %}
