@@ -107,3 +107,41 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Test(models.Model):
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
+    tested_date = models.DateTimeField(auto_now_add=True)
+    avg = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return '{} Test'.format(self.chapter.name)
+
+class QuestionOne(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    question_name = models.CharField(max_length=300, unique=True)
+
+    def __str__(self):
+        return '{} <-------------> {}'.format(self.question_name, self.test.chapter.name)
+
+
+class Answer(models.Model):
+    answer = models.CharField(max_length=300)
+    is_true = models.BooleanField(default=False)
+    question = models.ForeignKey(QuestionOne, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{} <------------> {}'.format(self.answer, self.question.question_name)

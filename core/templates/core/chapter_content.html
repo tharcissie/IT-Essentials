@@ -24,7 +24,10 @@
     height: 46px;
     margin-top: 30px;
 }
-
+.link-test{
+    color: white;
+    text-decoration: none;
+}
 </style>
 
     <div class="contents">
@@ -32,6 +35,9 @@
        <image class="image" src="{{chapter.cover_image.url}}" />
        <p>{{chapter.content}}</p>
 
-       <button class="button"><a href="{% url 'chapter_exam' chapter.id %}">Take Exam</a></button>
+       <button class="button"><a href="{% url 'take_exam' chapter.id %}">Take Exam</a></button>
+
+       <button class="button"><a class="link-test" href="{% url 'take_test' chapter.id %}">Take Test</a></button>
+
     </div>
 {% endblock container %}

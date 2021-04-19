@@ -12,3 +12,18 @@ admin.site.register(News)
 
 
 
+
+
+
+
+
+
+admin.site.register(Test)
+admin.site.register(QuestionOne)
+admin.site.register(Answer)
+
+
+
+
+
+

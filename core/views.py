@@ -15,23 +15,34 @@ def chapter_content(request, name):
     chapter = get_object_or_404(Chapter, name=name)
     return render(request, 'core/chapter_content.html',{'chapter':chapter})
 
-def chapter_exam(request, id):
-    if request.user.is_authenticated:
-        exam = Exam.objects.get(chapter=id)
-        number_of_questions = Question.objects.all().filter(exam=exam).count()
-        questions = Question.objects.filter(exam=exam)
-        total_marks = 0
 
-        for question in questions:
-            total_marks = total_marks + question.score
-        
+def take_exam(request, id):
+    exam = Exam.objects.get(chapter=id)
+    number_of_questions = Question.objects.all().filter(exam=exam).count()
+    questions = Question.objects.filter(exam=exam)
+    total_marks = 0
+
+    for question in questions:
+        total_marks = total_marks + question.score
+
+    return render(request, 'core/take_exam.html',{'exam':exam, 'number_of_questions':number_of_questions, 'total_marks':total_marks ,'questions':questions})
+
+
+
+
+def start_exam(request, id):
+    if request.user.is_authenticated:
+        exam = Exam.objects.get(id=id)
+        questions = Question.objects.filter(exam=exam)
+
         if request.method=='POST':
             pass
-        response = render(request, 'core/start_exam.html',{'exam':exam, 'questions':questions, 'number_of_questions':number_of_questions, 'total_marks':total_marks})
+        response = render(request, 'core/start_exam.html',{'exam':exam, 'questions':questions})
         response.set_cookie('exam_id',exam.id)
         return response
-    else:
-        return redirect('login')
+    return redirect('login')
+  
+
 
 
 def calculate_marks(request):
@@ -44,17 +55,17 @@ def calculate_marks(request):
         for i in range(len(questions)):
             
             selected_ans = request.COOKIES.get(str(i+1))
-            actual_answer = questions[i].answer
+            actual_answer = questions[i].answers
             if selected_ans == actual_answer:
-                total_marks = total_marks + questions[i].marks
-        student = StudentProfile.objects.get(user_id=request.user.id)
+                total_marks = total_marks + questions[i].score
+        student = StudentProfile.objects.get(id=request.user.id)
         result = Result()
         result.marks=total_marks
         result.exam=exam
         result.student=student
         result.save()
 
-        return HttpResponseRedirect('hompage')
+        return redirect('homepage')
 
 
 
@@ -87,3 +98,25 @@ def exam(request, pk):
     exam = get_object_or_404(Exam, pk=pk)
     question = Question.objects.filter(exam=exam)
     return render(request, 'core/exam.html', {'exam':exam,'question':question})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def take_test(request, chapter_id):
+    test = Test.objects.filter(chapter=chapter_id)
+    questions = QuestionOne.objects.all().filter(test=test)
+
+    
+    return render(request, 'take_test.html', {'questions':questions})
