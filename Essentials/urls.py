@@ -8,7 +8,7 @@ from core.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage, name='homepage'),
+    path('home', homepage, name='homepage'),
 
     path('signup', signup, name='signup'),
     path('login', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),

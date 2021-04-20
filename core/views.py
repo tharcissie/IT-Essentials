@@ -30,7 +30,8 @@ def account(request):
 @login_required(login_url='login')
 def chapter(request, pk):
     chapter = get_object_or_404(Chapter, pk=pk)
-    return render(request, 'core/chapter.html', {'chapter':chapter})
+    chapters = Chapter.objects.all()
+    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters})
 
 @login_required(login_url='login')
 def exam(request, pk):
