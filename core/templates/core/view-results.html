@@ -1,0 +1,7 @@
+{% extends "index.html" %} {% block container %} {% for exam in exams %}
+
+<tr>
+    <td> {{exam.chapter}}</td>
+    <td><a href="{% url 'results' exam.id  %}" class="text-primary"><i class="fas fa-eye"></i></a></td>
+</tr>
+{% endfor %} {% endblock %}

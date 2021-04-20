@@ -1,18 +1,4 @@
-{% extends "index.html" %} {% load static %} {% block container %} {% if request.user.is_superuser %} {% else %}
-
-<div class="col-md-3">
-    <img class="rounded-circle account-img" src="{{user.profile_image.url}}" width="20%">
-</div>
-
-<p><b>Name:</b> {{user.name}}</p>
-<p><b>Email:</b> {{user.email}}</p>
-{% endif %}
-
-
-
-
-
-
+{% extends "index.html" %} {% load static %} {% block container %} 
 
 <section class="page-header">
     <div class="container">
@@ -25,8 +11,6 @@
         </div>
     </div>
 </section>
-
-
 
 <section class="section-padding course">
     <!-- <div class="course-top-wrap">
@@ -58,13 +42,14 @@
                     <div class="course-img">
                         <img src="{% static 'assets/images/course/course-1.jpg' %}" alt="" class="img-fluid">
                         <div class="course-price ">
-                            <a href="{% url 'chapter' chapter.pk %}"><i class="far fa-eye text-white"></i></a></div>
+                            <a href="{% url 'chapter' chapter.id %}"><i class="far fa-eye text-white"></i></a></div>
                     </div>
                     <div class="course-content">
                         <span class="course-cat"></span>
-                        <h4><a href="{% url 'chapter' chapter.pk %}">Chapter {{chapter.pk}} - {{chapter.name}}</a></h4>
+                        <h4><a href="{% url 'chapter' chapter.id %}">Chapter {{chapter.id}} - {{chapter.name}}</a></h4>
+                        <p>{{chapter.snippet}}</p>
                         <div class="course-meta">
-                            <span class="course-duration"><a href="{% url 'exam' chapter.exam.pk %}"><i class="far fa-file-alt"></i>Take The Exam</a></span>
+                            <span class="course-duration"><a href="{% url 'take_exam' chapter.id %}"><i class="far fa-file-alt"></i>Take The Exam</a></span>
                         </div>
                     </div>
                 </div>
@@ -75,7 +60,5 @@
         </div>
     </div>
 </section>
-
-
 
 {% endblock container %}

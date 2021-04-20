@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-8">
                 <div class="title-block">
-                    <h1>Chapter {{chapter.pk}} - {{chapter.name}}</h1>
+                    <h1>Chapter {{chapter.id}} - {{chapter.name}}</h1>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
                     <div class="author">
                         <div class="author-info">
                             <p>
-                                <a href=" url 'exam' chapter.exam.pk %} "><i class="far fa-file-alt "></i>Take The Exam</a>
+                                <a href="{% url 'take_exam' chapter.id %}"><i class="far fa-file-alt "></i>Take The Exam</a>
                             </p>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
                         <h4 class="widget-title ">Chapters</h4>
                         <ul>
                             {% for chapter in chapters %}
-                            <li class="cat-item "><a href="{% url 'chapter' chapter.pk %}"><i class="fa fa-angle-right "></i>Chapter {{chapter.pk}} - {{chapter.name}}</a><i> 
+                            <li class="cat-item "><a href="{% url 'chapter' chapter.id %}"><i class="fa fa-angle-right "></i>Chapter {{chapter.id}} - {{chapter.name}}</a><i> 
                                 {% endfor %}
                         </ul>
                     </div>

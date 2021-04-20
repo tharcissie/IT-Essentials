@@ -60,14 +60,18 @@ class Chapter(models.Model):
     def __str__(self):
         return self.name
 
+    def snippet(self):
+        return self.content[:150]
+
 
 class Exam(models.Model):
     chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
     question_number = models.PositiveIntegerField()
     marks = models.IntegerField()
+    # student = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return (self.chapter.name)
+        return '{} Exam'.format(self.chapter.name)
 
 
 class Question(models.Model):
@@ -83,7 +87,7 @@ class Question(models.Model):
     answers=models.CharField(max_length=200,choices=answer_options)
 
     def __str__(self):
-        return '{}  Question  - In {}'.format(self.name, self.exam.chapter)
+        return '{}  <------>  {}'.format(self.name, self.exam.chapter)
 
 
 class Result(models.Model):
@@ -103,3 +107,30 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+class Test(models.Model):
+    student = models.ForeignKey(StudentProfile, on_delete=models.CASCADE)
+    chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
+    tested_date = models.DateTimeField(auto_now_add=True)
+    avg = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return '{} Test'.format(self.chapter.name)
+
+class QuestionOne(models.Model):
+    test = models.ForeignKey(Test, on_delete=models.CASCADE)
+    question_name = models.CharField(max_length=300, unique=True)
+
+    def __str__(self):
+        return '{} <-------------> {}'.format(self.question_name, self.test.chapter.name)
+
+
+class Answer(models.Model):
+    answer = models.CharField(max_length=300)
+    is_true = models.BooleanField(default=False)
+    question = models.ForeignKey(QuestionOne, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return '{} <------------> {}'.format(self.answer, self.question.question_name)

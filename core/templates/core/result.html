@@ -1,0 +1,40 @@
+{% extends "index.html" %} {% block container %}
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>Exam {{exam.chapter.id}} - {{exam.chapter}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    {% for result in result %} {{result.marks}}{% endfor %} {% for question in questions%}
+                    <br> {{question.name}}<br> answer1:{{question.answer1}}answer2:{{question.answer2}}{{question.answers}}{% endfor %}
+
+                </div>
+            </div>
+            <div class="blog-sidebar mt-5 mt-lg-0 ">
+                <div class="widget widget_categories ">
+                    <h4 class="widget-title ">Exams</h4>
+                    <ul>
+                        {% for exam in exams %}
+                        <li class="cat-item "><a href=""><i class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} - {{exam.chapter}}</a><i> 
+                                {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock container %}
