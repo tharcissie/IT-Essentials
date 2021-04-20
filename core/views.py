@@ -4,7 +4,7 @@ from .forms import *
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from .filters import QuestionFilter, ResultFilter
 
 
@@ -21,6 +21,7 @@ def chapter_content(request, slug):
 
 def take_exam(request, id):
     exam = Exam.objects.get(chapter=id)
+    exams = Exam.objects.all()
     number_of_questions = Question.objects.all().filter(exam=exam).count()
     questions = Question.objects.filter(exam=exam)
     total_marks = 0
@@ -28,25 +29,32 @@ def take_exam(request, id):
     for question in questions:
         total_marks = total_marks + question.score
 
-    return render(request, 'core/take_exam.html',{'exam':exam, 'number_of_questions':number_of_questions, 'total_marks':total_marks ,'questions':questions})
-
-
+    return render(request, 'core/exam.html',{'exam':exam, 'number_of_questions':number_of_questions, 'total_marks':total_marks ,'questions':questions, 'exams':exams})
 
 
 def start_exam(request, id):
     if request.user.is_authenticated:
         exam = Exam.objects.get(id=id)
         questions = Question.objects.filter(exam=exam)
-
         if request.method=='POST':
             pass
         response = render(request, 'core/start_exam.html',{'exam':exam, 'questions':questions})
         response.set_cookie('exam_id',exam.id)
         return response
     return redirect('login')
-  
 
+def view_result(request):
+    exams = Exam.objects.all()
+    return render(request,'core/view-results.html',{'exams':exams})
 
+@login_required(login_url='login')
+def results(request, id):
+    exam=Exam.objects.get(id=id)
+    exams=Exam.objects.all()
+    student = request.user.id
+    questions=Question.objects.all().filter(exam=exam)
+    result= Result.objects.all().filter(exam=exam).filter(student=student)
+    return render(request,'core/result.html',{'result':result,'exams':exams,'exam':exam,'questions':questions})
 
 def calculate_marks(request):
     if request.COOKIES.get('exam_id') is not None:
@@ -68,7 +76,7 @@ def calculate_marks(request):
         result.student=student
         result.save()
 
-        return redirect('homepage')
+        return redirect('view_result')
 
 
 
@@ -83,6 +91,7 @@ def signup(request):
             form = SignupForm()
 
     return render(request, 'core/signup.html',{'form':form})
+
 
 def account(request):
     students_list = StudentProfile.objects.all().exclude(is_superuser=True)
@@ -99,12 +108,10 @@ def chapter(request, pk):
     return render(request, 'core/chapter.html', {'chapter':chapter})
 
 @login_required(login_url='login')
-def exam(request, pk):
-    exam = get_object_or_404(Exam, pk=pk)
-    question = Question.objects.filter(exam=exam)
-    return render(request, 'core/exam.html', {'exam':exam,'question':question})
-
-
+def chapter(request, id):
+    chapter = get_object_or_404(Chapter, id=id)
+    chapters = Chapter.objects.all()
+    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters})
 
 def add_chapter(request):
     form = ChapterForm()
@@ -193,7 +200,16 @@ def students_results(request):
     filter = ResultFilter(request.GET, Result.objects.all().exclude(student__is_superuser=False))
     return render(request, 'admin/students_results.html',{'results':filter})
 
+def news(request):
+    news=News.objects.all()
+    chapters = Chapter.objects.all()
+    return render(request, 'core/news.html',{'news':news,'chapters':chapters})
 
+
+def news_details(request, id):
+    news=News.objects.get(id=id)
+    chapters = Chapter.objects.all()
+    return render(request, 'core/news_details.html',{'news':news,'chapters':chapters})
 
 
 

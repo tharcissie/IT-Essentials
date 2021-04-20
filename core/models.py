@@ -94,7 +94,7 @@ class Question(models.Model):
 
 
 class Result(models.Model):
-    student = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    student = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='results')
     exam = models.ForeignKey(Exam,on_delete=models.CASCADE)
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
@@ -110,17 +110,6 @@ class News(models.Model):
 
     def __str__(self):
         return self.title
-
-
-
-
-
-
-
-
-
-
-
 
 
 

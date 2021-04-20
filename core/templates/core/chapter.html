@@ -1,7 +1,49 @@
-{% extends "index.html" %}
+{% extends "index.html" %} {% block container %}
 
-{% block container %}
-    <h3>chapter</h3>
-    <p>{{chapter.content}}</p>
-    <p><a href="{% url 'exam' chapter.exam.pk %}">exam</a></p>
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>Chapter {{chapter.id}} - {{chapter.name}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    <div class="single-post-content">
+                        {{chapter.content}}
+                    </div>
+                    <div class="author">
+                        <div class="author-info">
+                            <p>
+                                <a href="{% url 'take_exam' chapter.id %}"><i class="far fa-file-alt "></i>Take The Exam</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-xl-4 ">
+                <div class="blog-sidebar mt-5 mt-lg-0 ">
+                    <div class="widget widget_categories ">
+                        <h4 class="widget-title ">Chapters</h4>
+                        <ul>
+                            {% for chapter in chapters %}
+                            <li class="cat-item "><a href="{% url 'chapter' chapter.id %}"><i class="fa fa-angle-right "></i>Chapter {{chapter.id}} - {{chapter.name}}</a><i> 
+                                {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock container %}

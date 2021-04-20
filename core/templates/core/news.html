@@ -1,0 +1,39 @@
+{% extends "index.html" %} {% load static %} {% block container %} 
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>IT-Essential-Course</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding course">
+    <div class="container">
+        <h3>All news</h3>
+        <div class="row">
+            {% for news in news %}
+            <div class="col-lg-4 col-md-6">
+                <div class="course-block">
+                    <div class="course-content">
+                        <span class="course-cat"></span>
+                        <h4><a href="{% url 'news_details' news.id %}">- {{news.title}}</a></h4>
+                        <p>{{news.snippet}}</p>
+                        <div class="course-meta">
+                            <span class="course-duration"><a href="{% url 'news_details' news.id %}"><i class="far fa-calender-alt"></i>{{news.published_date}}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+</section>
+
+{% endblock container %}

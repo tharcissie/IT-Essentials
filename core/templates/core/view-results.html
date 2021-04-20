@@ -1,0 +1,22 @@
+{% extends "index.html" %} 
+{% block container %} 
+
+<div class="container p-5">
+    <h4 class="text-center p-4">Exams</h4>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>Exam Name</th>
+                <th>View Marks</th>
+            </tr>
+        </thead>
+        {% for exam in exams %}
+
+        <tr>
+            <td> <a href="{% url 'take_exam' exam.id %}">{{exam.chapter}}</a></td>
+            <td><a href="{% url 'results' exam.id  %}" class="text-info"><i class="fas fa-eye"></i></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+ {% endblock %}

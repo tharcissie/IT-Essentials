@@ -1,16 +1,51 @@
-{% extends "index.html" %}
+{% extends "index.html" %} {% block container %}
 
-{% block container %}
-    <h3>chapter</h3>
-    <p>exam:{{exam.chapter}}</p>
-    <hr>
-<b>question</b>
-{% for question in question %}
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>Exam {{exam.chapter.id}} - {{exam.chapter}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <p>
-        {{question.name}}
-    </p>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    <div class="single-post-content">
+                        <h3 class="title"> Number of Questions: {{number_of_questions}}</h3>
+                        <h5 class="title"> Exam Marks: {{total_marks}}</h5>
+                        <h5 class="title"> Chapter Name: {{exam.chapter}}</h5>
+                    </div>
+                    <div class="author">
+                        <div class="author-info">
+                            <p class="text-center">
+                                <a href=" {% url 'start-exam' exam.id  %}"><i class="far fa-file-alt "></i>Sart Exam</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-{% endfor %}
+            </div>
+            <div class="col-lg-4 col-xl-4 ">
+                <div class="blog-sidebar mt-5 mt-lg-0 ">
+                    <div class="widget widget_categories ">
+                        <h4 class="widget-title ">Exams</h4>
+                        <ul>
+                            {% for exam in exams %}
+                            <li class="cat-item "><a href="{% url 'take_exam' exam.id%}"><i class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} - {{exam.chapter}}</a><i> 
+                                {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock container %}

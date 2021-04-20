@@ -4,26 +4,27 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.conf import settings
 from django.contrib import admin
-from core.views import ( homepage, chapter_content, take_exam, start_exam, signup, 
-                        take_test, account, chapter, exam, calculate_marks, add_chapter, 
-                        add_exam, add_question, view_exams, view_questions, view_chapters,
-                        edit_chapter, edit_exam, edit_question, students_results)
+from core.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', homepage, name='homepage'),
+    path('home', homepage, name='homepage'),
     path('it-essentials/<slug:slug>', chapter_content, name='chapter_content'),
     path('it-essentials/<int:id>/take-exam', take_exam, name='take_exam'),
     path('it-essentials/<int:id>/start-exam', start_exam, name='start-exam'),
     path('it/calculate-marks', calculate_marks,name='calculate-marks'),
+    path('result/<int:id>', results,name='results'),
+    path('view_result', view_result, name='view_result'),
+    path('chapter/<int:id>/', chapter, name='chapter'),  
 
+    path('news', news, name='news'),
+    path('news/<int:id>', news_details, name='news_details'),
 
     path('signup', signup, name='signup'),
     path('login', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('account', account, name='account'),
-    path('chapter/<int:pk>', chapter, name='chapter'),
-    path('exam/<int:pk>', exam, name='exam'),
+    
+    # path('exam/<int:id>', exam, name='exam'),
 
     path('add-chapter', add_chapter, name='add_chapter'),
     path('add-exam', add_exam, name='add_exam'),
