@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-8">
                 <div class="title-block">
-                    <h1>Exam {{exam.chapter.id}} - {{exam.chapter}}</h1>
+                    <h1>news {{news.id}} - {{news.title}}</h1>
                 </div>
             </div>
         </div>
@@ -18,16 +18,7 @@
             <div class="col-lg-8 col-xl-8">
                 <div class="post-single">
                     <div class="single-post-content">
-                        <h3 class="title"> Number of Questions: {{number_of_questions}}</h3>
-                        <h5 class="title"> Exam Marks: {{total_marks}}</h5>
-                        <h5 class="title"> Chapter Name: {{exam.chapter}}</h5>
-                    </div>
-                    <div class="author">
-                        <div class="author-info">
-                            <p class="text-center">
-                                <a href=" {% url 'start-exam' exam.id  %}"><i class="far fa-file-alt "></i>Sart Exam</a>
-                            </p>
-                        </div>
+                        {{news.content}}
                     </div>
                 </div>
 
@@ -35,10 +26,10 @@
             <div class="col-lg-4 col-xl-4 ">
                 <div class="blog-sidebar mt-5 mt-lg-0 ">
                     <div class="widget widget_categories ">
-                        <h4 class="widget-title ">Exams</h4>
+                        <h4 class="widget-title ">Chapters</h4>
                         <ul>
-                            {% for exam in exams %}
-                            <li class="cat-item "><a href="{% url 'take_exam' exam.id%}"><i class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} - {{exam.chapter}}</a><i> 
+                            {% for chapter in chapters %}
+                            <li class="cat-item "><a href="{% url 'chapter' chapter.id %}"><i class="fa fa-angle-right "></i>Chapter {{chapter.id}} - {{chapter.name}}</a><i> 
                                 {% endfor %}
                         </ul>
                     </div>

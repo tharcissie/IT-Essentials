@@ -50,9 +50,11 @@ def view_result(request):
 @login_required(login_url='login')
 def results(request, id):
     exam=Exam.objects.get(id=id)
+    exams=Exam.objects.all()
     student = request.user.id
+    questions=Question.objects.all().filter(exam=exam)
     result= Result.objects.all().filter(exam=exam).filter(student=student)
-    return render(request,'core/result.html',{'result':result})
+    return render(request,'core/result.html',{'result':result,'exams':exams,'exam':exam,'questions':questions})
 
 def calculate_marks(request):
     if request.COOKIES.get('exam_id') is not None:
@@ -193,7 +195,16 @@ def students_results(request):
     filter = ResultFilter(request.GET, Result.objects.all().exclude(student__is_superuser=False))
     return render(request, 'core/students_results.html',{'results':filter})
 
+def news(request):
+    news=News.objects.all()
+    chapters = Chapter.objects.all()
+    return render(request, 'core/news.html',{'news':news,'chapters':chapters})
 
+
+def news_details(request, id):
+    news=News.objects.get(id=id)
+    chapters = Chapter.objects.all()
+    return render(request, 'core/news_details.html',{'news':news,'chapters':chapters})
 
 
 
