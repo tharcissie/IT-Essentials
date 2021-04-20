@@ -4,7 +4,7 @@ from .forms import *
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from .filters import QuestionFilter, ResultFilter
 
 
@@ -47,9 +47,10 @@ def view_result(request):
     exams = Exam.objects.all()
     return render(request,'core/view-results.html',{'exams':exams})
 
+@login_required(login_url='login')
 def results(request, id):
     exam=Exam.objects.get(id=id)
-    student = get_object_or_404(StudentProfile, id=id)
+    student = request.user.id
     result= Result.objects.all().filter(exam=exam).filter(student=student)
     return render(request,'core/result.html',{'result':result})
 
