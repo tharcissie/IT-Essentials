@@ -70,7 +70,7 @@ class Chapter(models.Model):
 class Exam(models.Model):
     chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
     question_number = models.PositiveIntegerField()
-    marks = models.IntegerField()
+    marks = models.PositiveIntegerField()
     # student = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

@@ -162,7 +162,7 @@
                                             </a>
                                     </li>
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="{% url 'logout' %}">
                                         <i class="ti-layout-sidebar-left"></i> Logout
                                     </a>
                                     </li>
@@ -219,7 +219,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="active">
-                                            <a href="index-2.html">
+                                            <a href="{% url 'add_chapter' %}">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.dash.default">Add Chapter</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -243,7 +243,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
-                                            <a href="chart-google.html">
+                                            <a href="{% url 'add_exam' %}">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.charts.google-chart">Add Exam</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -269,7 +269,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="">
-                                            <a href="">
+                                            <a href="{% url 'add_question' %}">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext" data-i18n="nav.invoice.invoice">Add Question</span>
                                                 <span class="pcoded-mcaret"></span>
@@ -285,7 +285,7 @@
                                     </ul>
                                 </li>
                                 <li class="pcoded-hasmenu ">
-                                    <a href="#">
+                                    <a href="{% url 'students_results' %}">
                                         <span class="pcoded-mtext" data-i18n="nav.event-calendar.main">Students Results</span>
                                     </a>
                                 </li>

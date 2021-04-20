@@ -119,7 +119,7 @@ def add_chapter(request):
             return redirect('view_chapters')
         else:
             form = ChapterForm()
-    return render(request, 'core/add_chapter.html')
+    return render(request, 'admin/add_chapter.html')
 
 
 def add_exam(request):
@@ -131,7 +131,7 @@ def add_exam(request):
             return redirect('add_question')
         else:
             exam_form = ExamForm()
-    return render(request, 'core/add_exam.html', {'exam_form':exam_form})
+    return render(request, 'admin/add_exam.html', {'exam_form':exam_form})
 
 
 def add_question(request):
@@ -140,10 +140,10 @@ def add_question(request):
         question_form = QuestionForm(request.POST or None)
         if question_form.is_valid():
             question_form.save()
-            return redirect('add_question')
+            return redirect('view_questions')
         else:
             question_form = QuestionForm()
-    return render(request, 'core/add_question.html',{'question_form':question_form})
+    return render(request, 'admin/add_question.html',{'question_form':question_form})
 
 
 def view_exams(request):
@@ -167,7 +167,7 @@ def edit_exam(request, pk):
     if exam_form.is_valid():
         exam_form.save()
         return redirect('view_exams')
-    return render(request, 'core/edit_exam.html', {'exam_form':exam_form})
+    return render(request, 'admin/edit_exam.html', {'exam_form':exam_form})
 
 
 def edit_question(request, pk):
@@ -176,16 +176,7 @@ def edit_question(request, pk):
     if question_form.is_valid():
         question_form.save()
         return redirect('view_questions')
-    return render(request, 'core/edit_question.html', {'question_form':question_form})
-
-
-def edit_question(request, pk):
-    question = Question.objects.get(pk=pk)
-    question_form = QuestionForm(request.POST or None, instance=question)
-    if question_form.is_valid():
-        question_form.save()
-        return redirect('view_questions')
-    return render(request, 'core/edit_question.html', {'question_form':question_form})
+    return render(request, 'admin/edit_question.html', {'question_form':question_form})
 
 
 def edit_chapter(request, pk):
@@ -195,7 +186,7 @@ def edit_chapter(request, pk):
         chapter_form.save()
         return redirect('view_chapters')
     chapter_form = ChapterForm(request.POST or None, files=request.FILES, instance=chapter)
-    return render(request, 'core/edit_chapter.html', {'chapter_form':chapter_form})
+    return render(request, 'admin/edit_chapter.html', {'chapter_form':chapter_form})
 
 
 def students_results(request):
