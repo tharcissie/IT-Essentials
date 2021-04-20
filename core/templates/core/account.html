@@ -1,26 +1,50 @@
 {% extends "index.html" %}
 
 {% block container %}
+<style>
+.link{
+    margin:0px 20px;
+}
+.view{
+    margin-top:30px;
+}
+</style>
+
     <h3>account</h3>
     
     {% if request.user.is_superuser %}
-    
+        <div>
+            <div>
+                <a class="link" href="{% url 'add_chapter' %}"> Add Chapter </a>
+                <a class="link" href="{% url 'add_exam' %}"> Add Exam </a>
+                <a class="link" href="{% url 'add_question' %}"> Add Question </a>
+            </div>
+            <div class="view">
+                <a class="link" href="{% url 'view_chapters' %}"> View Chapters </a>
+                <a class="link" href="{% url 'view_exams' %}"> View Exams </a>
+                <a class="link" href="{% url 'view_questions' %}"> View Questions </a>
+            </div>
+            <div class="view">
+                <a class="link" href="{% url 'students_results' %}">Students Results </a>
+            </div>
+        </div>
+       
+
     {% else %}
    
-                        <div class="col-md-3">
-                            <img class="rounded-circle account-img" src="{{user.profile_image.url}}" width="20%">
-                        </div>
-                        
-                                    <p><b>Name:</b> {{user.name}}</p>
-                                    <p><b>Email:</b> {{user.email}}</p>
-      {% endif %}
-    {% for chapter in chapters %}
-    <p><a href="{% url 'chapter' chapter.pk %}">{{chapter.name}}</a></p>
-    <p>{{chapter.exam}}</p>
-    <br><br>
-    {% endfor %}
+        <div class="col-md-3">
+            <img class="rounded-circle account-img" src="{{user.profile_image.url}}" width="20%">
+        </div>         
+        <p><b>Name:</b> {{user.name}}</p>
+        <p><b>Email:</b> {{user.email}}</p>
+
+        {% for chapter in chapters %}
+            <p><a href="{% url 'chapter' chapter.pk %}">{{chapter.name}}</a></p>
+            <p>{{chapter.exam}}</p>
+            <br><br>
+        {% endfor %}
     
+    {% endif %}
 
 
-    
 {% endblock container %}

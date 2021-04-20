@@ -20,7 +20,7 @@
     <div class="contents">
     {% for chapter in  chapters %}
         <div class="card">
-            <h4><a href="{% url 'chapter_content' chapter.name %}">{{chapter.name}}</a></h4>
+            <h4><a href="{% url 'chapter_content' chapter.slug %}">{{chapter.name}}</a></h4>
             <p>{{chapter.snippet}}</p>
         </div>
     {% endfor %}

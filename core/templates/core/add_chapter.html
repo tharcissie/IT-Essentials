@@ -1,0 +1,19 @@
+<form id="regForm" action="{% url 'add_chapter' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="p-5">
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" name= "content" placeholder="Content" rows="10"></textarea>
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm" name="cover_image" id="formFileSm" type="file">
+        </div>
+        <div class="mb-3">
+            <input class="form-control form-control-sm" name="file_to_download" id="formFileSm" type="file">
+        </div>
+
+        <button class="btn text-light pt-2" type="submit" style="background-color: orangered;">ADD</button>
+    </div>
+</form> 

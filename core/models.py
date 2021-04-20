@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils import timezone
 from django.conf import settings
+from autoslug import AutoSlugField
 
 
 
@@ -54,8 +55,10 @@ class StudentProfile(AbstractBaseUser, PermissionsMixin):
 
 class Chapter(models.Model):
     name = models.CharField(max_length=300)
+    slug = AutoSlugField(populate_from='name')
     content = models.TextField()
     cover_image = models.ImageField(upload_to='chapters_cover_images')
+    file_to_download = models.FileField(upload_to='chapter_file', blank=True, null=True)
 
     def __str__(self):
         return self.name
