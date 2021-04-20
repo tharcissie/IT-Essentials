@@ -64,7 +64,7 @@ class Chapter(models.Model):
         return self.name
 
     def snippet(self):
-        return self.content[:150]
+        return self.content[:50] + '...'
 
 
 class Exam(models.Model):

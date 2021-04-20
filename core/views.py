@@ -84,10 +84,14 @@ def signup(request):
 
     return render(request, 'core/signup.html',{'form':form})
 
-@login_required(login_url='login')
 def account(request):
-    chapters = Chapter.objects.all()
-    return render(request, 'core/account.html', {'chapters':chapters})
+    students_list = StudentProfile.objects.all().exclude(is_superuser=True)
+    students = StudentProfile.objects.all().exclude(is_superuser=True).count()
+    chapters = Chapter.objects.all().count()
+    tests = Exam.objects.all().count()
+    questions = Question.objects.all().count()
+
+    return render(request, 'admin/account.html', {'students_list':students_list,'students':students,'chapters':chapters, 'tests':tests,'questions':questions})
 
 @login_required(login_url='login')
 def chapter(request, pk):
@@ -144,17 +148,17 @@ def add_question(request):
 
 def view_exams(request):
     exams = Exam.objects.all()
-    return render(request, 'core/view_exams.html',{'exams':exams})
+    return render(request, 'admin/view_exams.html',{'exams':exams})
 
 
 def view_questions(request):
     filter = QuestionFilter(request.GET, queryset=Question.objects.all())
-    return render(request, 'core/view_questions.html',{'questions':filter})
+    return render(request, 'admin/view_questions.html',{'questions':filter})
 
 
 def view_chapters(request):
     chapters = Chapter.objects.all()
-    return render(request, 'core/view_chapters.html',{'chapters':chapters})
+    return render(request, 'admin/view_chapters.html',{'chapters':chapters})
 
 
 def edit_exam(request, pk):
@@ -196,7 +200,7 @@ def edit_chapter(request, pk):
 
 def students_results(request):
     filter = ResultFilter(request.GET, Result.objects.all().exclude(student__is_superuser=False))
-    return render(request, 'core/students_results.html',{'results':filter})
+    return render(request, 'admin/students_results.html',{'results':filter})
 
 
 
