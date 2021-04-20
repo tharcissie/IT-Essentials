@@ -1,0 +1,9 @@
+
+
+<form method="post">
+    {% csrf_token %}
+    <div class="p-5">
+            {{question_form}}
+        <button class="btn text-light pt-2" type="submit" style="background-color: orangered;">UPDATE</button>
+    </div>
+</form> 

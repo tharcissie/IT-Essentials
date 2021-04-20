@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 django = "*"
 pillow = "*"
+django-autoslug = "*"
+django-filter = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 

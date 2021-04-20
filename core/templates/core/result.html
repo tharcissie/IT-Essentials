@@ -11,26 +11,39 @@
         </div>
     </div>
 </section>
-
 <div class="page-wrapper">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-xl-8">
                 <div class="post-single">
-                    {% for result in result %} {{result.marks}}{% endfor %} {% for question in questions%}
-                    <br> {{question.name}}<br> answer1:{{question.answer1}}answer2:{{question.answer2}}{{question.answers}}{% endfor %}
+                {% if result %}
+            
+                    {% for result in result %}
+                   marks {{result.marks}}
+                   student {{result.student}} <br> <br>
+                    {% endfor %}
+                    {% for question in questions%}
+                    <br> {{question.name}}
+                    <br> answer1:{{question.answer1}}
+                    answer2:{{question.answer2}}
+                    {{question.answers}}
+                    {% endfor %}
 
+                    {% else %}
+                    <h3>You Haven't Taken The Exam Yet</h3>
+                    {% endif %}
                 </div>
             </div>
+            
             <div class="blog-sidebar mt-5 mt-lg-0 ">
                 <div class="widget widget_categories ">
                     <h4 class="widget-title ">Exams</h4>
                     <ul>
                         {% for exam in exams %}
-                        <li class="cat-item "><a href=""><i class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} - {{exam.chapter}}</a><i> 
+                        <li class="cat-item "><a href=""><i class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} -
+                                {{exam.chapter}}</a><i>
                                 {% endfor %}
-                        </ul>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </div>

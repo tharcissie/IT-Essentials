@@ -5,11 +5,18 @@ from django.contrib.auth import views as auth_views
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required
+from .filters import QuestionFilter, ResultFilter
+
+
 
 
 def homepage(request):
     chapters = Chapter.objects.all()
     return render(request, 'core/homepage.html',{'chapters':chapters})
+
+def chapter_content(request, slug):
+    chapter = get_object_or_404(Chapter, slug=slug)
+    return render(request, 'core/chapter_content.html',{'chapter':chapter})
 
 
 def take_exam(request, id):
@@ -29,7 +36,6 @@ def start_exam(request, id):
     if request.user.is_authenticated:
         exam = Exam.objects.get(id=id)
         questions = Question.objects.filter(exam=exam)
-
         if request.method=='POST':
             pass
         response = render(request, 'core/start_exam.html',{'exam':exam, 'questions':questions})
@@ -43,11 +49,9 @@ def view_result(request):
 
 def results(request, id):
     exam=Exam.objects.get(id=id)
-    exams = Exam.objects.all()
     student = get_object_or_404(StudentProfile, id=id)
-    questions = Question.objects.filter(exam=exam)
     result= Result.objects.all().filter(exam=exam).filter(student=student)
-    return render(request,'core/result.html',{'result':result,'exam':exam, 'exams':exams,'questions':questions})
+    return render(request,'core/result.html',{'result':result})
 
 def calculate_marks(request):
     if request.COOKIES.get('exam_id') is not None:
@@ -73,8 +77,6 @@ def calculate_marks(request):
 
 
 
-
-
 def signup(request):
     form = SignupForm()
     if request.method == 'POST':
@@ -94,11 +96,150 @@ def chapter(request, id):
     chapters = Chapter.objects.all()
     return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters})
 
-# @login_required(login_url='login')
-# def exam(request, id):
-#     exam = get_object_or_404(Exam, id=id)
-#     question = Question.objects.filter(exam=exam)
-#     return render(request, 'core/exam.html', {'exam':exam,'question':question})
+def add_chapter(request):
+    form = ChapterForm()
+    if request.method == 'POST':
+        form = ChapterForm(request.POST or None, files=request.FILES)
+        if form.is_valid():
+            form.name =  request.POST['name']
+            form.content =  request.POST['content']
+            form.cover_image =  request.FILES['cover_image']   
+            form.file_to_download =  request.FILES['file_to_download']   
+            form.save()
+            return redirect('view_chapters')
+        else:
+            form = ChapterForm()
+    return render(request, 'core/add_chapter.html')
+
+
+def add_exam(request):
+    exam_form = ExamForm()
+    if request.method == 'POST':
+        exam_form = ExamForm(request.POST or None)
+        if exam_form.is_valid():
+            exam_form.save()
+            return redirect('add_question')
+        else:
+            exam_form = ExamForm()
+    return render(request, 'core/add_exam.html', {'exam_form':exam_form})
+
+
+def add_question(request):
+    question_form = QuestionForm()
+    if request.method == 'POST':
+        question_form = QuestionForm(request.POST or None)
+        if question_form.is_valid():
+            question_form.save()
+            return redirect('add_question')
+        else:
+            question_form = QuestionForm()
+    return render(request, 'core/add_question.html',{'question_form':question_form})
+
+
+def view_exams(request):
+    exams = Exam.objects.all()
+    return render(request, 'core/view_exams.html',{'exams':exams})
+
+
+def view_questions(request):
+    filter = QuestionFilter(request.GET, queryset=Question.objects.all())
+    return render(request, 'core/view_questions.html',{'questions':filter})
+
+
+def view_chapters(request):
+    chapters = Chapter.objects.all()
+    return render(request, 'core/view_chapters.html',{'chapters':chapters})
+
+
+def edit_exam(request, pk):
+    exam = Exam.objects.get(pk=pk)
+    exam_form = ExamForm(request.POST or None, instance=exam)
+    if exam_form.is_valid():
+        exam_form.save()
+        return redirect('view_exams')
+    return render(request, 'core/edit_exam.html', {'exam_form':exam_form})
+
+
+def edit_question(request, pk):
+    question = Question.objects.get(pk=pk)
+    question_form = QuestionForm(request.POST or None, instance=question)
+    if question_form.is_valid():
+        question_form.save()
+        return redirect('view_questions')
+    return render(request, 'core/edit_question.html', {'question_form':question_form})
+
+
+def edit_question(request, pk):
+    question = Question.objects.get(pk=pk)
+    question_form = QuestionForm(request.POST or None, instance=question)
+    if question_form.is_valid():
+        question_form.save()
+        return redirect('view_questions')
+    return render(request, 'core/edit_question.html', {'question_form':question_form})
+
+
+def edit_chapter(request, pk):
+    chapter = Chapter.objects.get(pk=pk)
+    chapter_form = ChapterForm(request.POST or None, files=request.FILES, instance=chapter)
+    if chapter_form.is_valid():
+        chapter_form.save()
+        return redirect('view_chapters')
+    chapter_form = ChapterForm(request.POST or None, files=request.FILES, instance=chapter)
+    return render(request, 'core/edit_chapter.html', {'chapter_form':chapter_form})
+
+
+def students_results(request):
+    filter = ResultFilter(request.GET, Result.objects.all().exclude(student__is_superuser=False))
+    return render(request, 'core/students_results.html',{'results':filter})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -39,3 +39,23 @@ class UserChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial["password"]
 
+class ChapterForm(forms.ModelForm):
+    class Meta:
+        model = Chapter
+        fields = ['name','content','cover_image','file_to_download']
+
+
+
+
+class ExamForm(forms.ModelForm):
+    class Meta:
+        model = Exam
+        fields = ['chapter','question_number','marks']
+
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = ['exam','score','name','answer1','answer2','answer3','answer4','answer5','answers']
+
+
+

@@ -1,167 +1,111 @@
 <!DOCTYPE html>
 <html lang="zxx">
 <!-- Mirrored from themeturn.com/tf-db/eduhash/theme/course-grid-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Apr 2021 13:21:30 GMT -->
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-{% load static %}
-  <title>IT Essentials</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {% load static %}
+    <title>IT Essentials</title>
 
-  <!-- Mobile Specific Meta-->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- bootstrap.min css -->
-  <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap/bootstrap.css' %}">
-  <!-- Iconfont Css -->
-  <link rel="stylesheet" href="{% static 'assets/vendors/fontawesome/css/all.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/vendors/flaticon/flaticon.css' %}">
-  <!-- animate.css -->
-  <link rel="stylesheet" href="{% static 'assets/vendors/animate-css/animate.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.carousel.min.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.theme.default.min.css' %}">
+    <!-- Mobile Specific Meta-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- bootstrap.min css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap/bootstrap.css' %}">
+    <!-- Iconfont Css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/flaticon/flaticon.css' %}">
+    <!-- animate.css -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/animate-css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.theme.default.min.css' %}">
 
-  <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
 
 </head>
 
-<body id="top-header"> 
-<header> 
-    <!-- Main Menu Start -->
-    <div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="index.html">
-                    <img src="{% static 'assets/images/dark-logo.png' %}" alt="Eduhash" class="img-fluid">
-                </a>
+<body id="top-header">
+    <header>
+        <!-- Main Menu Start -->
+        <div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
+            <nav class="navbar navbar-expand-lg">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'homepage' %}">
+                        <img src="{% static 'assets/images/dark-logo.png' %}" alt="Eduhash" class="img-fluid">
+                    </a>
 
-                <!-- Toggler -->
+                    <!-- Toggler -->
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="fa fa-bars"></span>
-                </button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
+                        aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="fa fa-bars"></span>
+                    </button>
 
-                <!-- Collapse -->
-                <div class="collapse navbar-collapse" id="navbarMenu">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Home<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="index.html">
-                                    Home 1
+                    <!-- Collapse -->
+                    <div class="collapse navbar-collapse" id="navbarMenu">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item ">
+                                <a href="{% url 'homepage' %}" class="nav-link js-scroll-trigger">
+                                    home
                                 </a>
-                                <a class="dropdown-item " href="index-2.html">
-                                    Home 2
-                                </a> 
-                                <a class="dropdown-item " href="index-3.html">
-                                    Home 3
-                                </a> 
-                                <a class="dropdown-item " href="index-4.html">
-                                    Home 4
-                                </a> 
-                            </div>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="about.html" class="nav-link js-scroll-trigger">
-                                About us
-                            </a>
-                        </li>
+                            </li>
+                            <li class="nav-item ">
+                                <a href="{% url 'view_result' %}" class="nav-link js-scroll-trigger">
+                                    Exams
+                                </a>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Courses<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="course-grid.html">
-                                    Course Style 1
+                            <li class="nav-item ">
+                                <a href="contact.html" class="nav-link">
+                                    News
                                 </a>
-                                <a class="dropdown-item " href="course-grid-2.html">
-                                    Course Style 2
-                                </a> 
+                            </li>
+                        </ul>
+                        {% if user.is_authenticated %}
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <img class="rounded-circle" src="{{ user.profile_image.url }}" width="30"
+                                        alt="bgvf">
+                                    &nbsp; <span>{{user.name|title}}</span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbar3">
+                                    <a class="dropdown-item " href="{% url 'logout' %}">
+                                        <i class="fas fa-sign-out-alt"></i>&nbsp;
+                                        &nbsp; Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                        {% else %}
+                        <div class="header-login">
+                            <a href="{% url 'login' %}" class="btn btn-solid-border btn-sm ">Log In</a>
+                            <a href="{% url 'signup' %}" class="btn btn-main btn-sm">sign up</a>
+                        </div>
+                        {% endif %}
+                    </div> <!-- / .navbar-collapse -->
+                </div> <!-- / .container -->
+            </nav>
+        </div>
+    </header>
+    {% block container %}
 
-                                <a class="dropdown-item " href="course-grid-3.html">
-                                    Course Style 3
-                                </a> 
-                                <a class="dropdown-item " href="course-grid-4.html">
-                                    Course Style 4
-                                </a> 
-                                 <a class="dropdown-item " href="course-single.html">
-                                    Course Details Style 1
-                                </a> 
-                                <a class="dropdown-item " href="course-single2.html">
-                                    Course Details Style 2
-                                </a> 
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pages<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="login.html">
-                                    Login
-                                </a>
-                                <a class="dropdown-item " href="register.html">
-                                    Register
-                                </a> 
-                                <a class="dropdown-item " href="cart.html">
-                                    cart
-                                </a> 
-                                <a class="dropdown-item " href="checkout.html">
-                                    checkout
-                                </a> 
-                                <a class="dropdown-item " href="error.html">
-                                    404
-                                </a> 
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Blog<i class="fa fa-angle-down"></i>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbar3">
-                                 <a class="dropdown-item " href="blog.html">
-                                    Blog
-                                </a>
-                                <a class="dropdown-item " href="blog-single.html">
-                                    Blog Single
-                                </a> 
-                            </div>
-                        </li>
-                        
-                        <li class="nav-item ">
-                            <a href="contact.html" class="nav-link">
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
-                    
-                    <div class="header-login">
-                        <a href="#" class="btn btn-solid-border btn-sm ">Log In</a>
-                        <a href="#" class="btn btn-main btn-sm">sign up</a>
-                    </div>
-                </div> <!-- / .navbar-collapse -->
-            </div> <!-- / .container -->
-        </nav>
+    {% endblock container %}
+    <!-- Footer section start -->
+    <section class="footer-2">
+        <div class="container">
+            <div class="copyright text-left text-center">
+                <p>© Copyright IT-Essential All rights reserved.</a> </p>
+            </div>
+        </div>
+    </section>
+    <!-- Footer section End -->
+
+    <div class="fixed-btm-top">
+        <a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
     </div>
-</header>
- {% block container %}
-        
- {% endblock container %}
-<!-- Footer section start -->
-<section class="footer-2">
-		<div class="container">
-					<div class="copyright text-left text-center">
-						<p>© Copyright IT-Essential All rights reserved.</a> </p>
-					</div>
-		</div>
-</section>
-<!-- Footer section End -->
-
-<div class="fixed-btm-top">
-	<a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
-</div>
 
 
 
@@ -169,9 +113,11 @@
     <!-- 
     Essential Scripts
     =====================================-->
-    
+
     <!-- Main jQuery -->
-    <script data-cfasync="false" src="http://themeturn.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="assets/vendors/jquery/jquery.js"></script>
+    <script data-cfasync="false"
+        src="http://themeturn.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="assets/vendors/jquery/jquery.js"></script>
     <!-- Bootstrap 4.5 -->
     <script src="{% static 'assets/vendors/bootstrap/bootstrap.js' %}"></script>
     <!-- Counterup -->
@@ -181,11 +127,13 @@
     <script src="{% static 'assets/vendors/imagesloaded.html' %}"></script>
     <script src="{% static 'assets/vendors/owl/owl.carousel.min.js' %}"></script>
     <script src="{% static 'assets/vendors/google-map/map.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>    
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>
     <script src="{% static 'assets/js/script.js' %}"></script>
 
 
-  </body>
-  
+</body>
+
 <!-- Mirrored from themeturn.com/tf-db/eduhash/theme/course-grid-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Apr 2021 13:21:30 GMT -->
+
 </html>
