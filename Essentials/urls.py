@@ -8,7 +8,7 @@ from core.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home', homepage, name='homepage'),
+    path('', homepage, name='homepage'),
     path('it-essentials/<slug:slug>', chapter_content, name='chapter_content'),
     path('it-essentials/<int:id>/take-exam', take_exam, name='take_exam'),
     path('it-essentials/<int:id>/start-exam', start_exam, name='start-exam'),
@@ -39,18 +39,8 @@ urlpatterns = [
     path('edit-chapter/<int:pk>', edit_chapter, name='edit_chapter'),
 
     path('students-results', students_results, name='students_results'),
+    path('your-result/<int:id>', after_exam, name='after_exam'),
 
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     path('take_test/<int:chapter_id>', take_test, name='take_test'),
 
 

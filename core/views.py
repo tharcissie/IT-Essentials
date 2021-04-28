@@ -14,9 +14,13 @@ def homepage(request):
     chapters = Chapter.objects.all()
     return render(request, 'core/homepage.html',{'chapters':chapters})
 
+
+
 def chapter_content(request, slug):
     chapter = get_object_or_404(Chapter, slug=slug)
     return render(request, 'core/chapter_content.html',{'chapter':chapter})
+
+
 
 
 def take_exam(request, id):
@@ -32,6 +36,8 @@ def take_exam(request, id):
     return render(request, 'core/exam.html',{'exam':exam, 'number_of_questions':number_of_questions, 'total_marks':total_marks ,'questions':questions, 'exams':exams})
 
 
+
+
 def start_exam(request, id):
     if request.user.is_authenticated:
         exam = Exam.objects.get(id=id)
@@ -43,9 +49,23 @@ def start_exam(request, id):
         return response
     return redirect('login')
 
+
+
 def view_result(request):
     exams = Exam.objects.all()
     return render(request,'core/view-results.html',{'exams':exams})
+
+
+
+@login_required(login_url='login')
+def after_exam(request, id):
+    student = request.user.id
+    # exam = Exam.objects.get(id=id)
+    exams=Exam.objects.all()
+    result=Result.objects.all().filter(student=student).order_by('-id')[:1]
+    return render(request, 'core/after_exam.html',{'result':result,'exams':exams})
+
+
 
 @login_required(login_url='login')
 def results(request, id):
@@ -55,6 +75,10 @@ def results(request, id):
     questions=Question.objects.all().filter(exam=exam)
     result= Result.objects.all().filter(exam=exam).filter(student=student)
     return render(request,'core/result.html',{'result':result,'exams':exams,'exam':exam,'questions':questions})
+
+
+
+
 
 def calculate_marks(request):
     if request.COOKIES.get('exam_id') is not None:
@@ -76,7 +100,9 @@ def calculate_marks(request):
         result.student=student
         result.save()
 
-        return redirect('view_result')
+        return redirect('after_exam', exam_id)
+
+
 
 
 
@@ -93,6 +119,10 @@ def signup(request):
     return render(request, 'core/signup.html',{'form':form})
 
 
+
+
+
+
 def account(request):
     students_list = StudentProfile.objects.all().exclude(is_superuser=True)
     students = StudentProfile.objects.all().exclude(is_superuser=True).count()
@@ -102,16 +132,18 @@ def account(request):
 
     return render(request, 'admin/account.html', {'students_list':students_list,'students':students,'chapters':chapters, 'tests':tests,'questions':questions})
 
-@login_required(login_url='login')
-def chapter(request, pk):
-    chapter = get_object_or_404(Chapter, pk=pk)
-    return render(request, 'core/chapter.html', {'chapter':chapter})
+
+
 
 @login_required(login_url='login')
 def chapter(request, id):
     chapter = get_object_or_404(Chapter, id=id)
+    exam = Exam.objects.all().filter(chapter=chapter)
     chapters = Chapter.objects.all()
-    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters})
+    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters, 'exam':exam})
+
+
+
 
 def add_chapter(request):
     form = ChapterForm()
@@ -129,6 +161,9 @@ def add_chapter(request):
     return render(request, 'admin/add_chapter.html')
 
 
+
+
+
 def add_exam(request):
     exam_form = ExamForm()
     if request.method == 'POST':
@@ -139,6 +174,8 @@ def add_exam(request):
         else:
             exam_form = ExamForm()
     return render(request, 'admin/add_exam.html', {'exam_form':exam_form})
+
+
 
 
 def add_question(request):
@@ -153,9 +190,13 @@ def add_question(request):
     return render(request, 'admin/add_question.html',{'question_form':question_form})
 
 
+
+
 def view_exams(request):
     exams = Exam.objects.all()
     return render(request, 'admin/view_exams.html',{'exams':exams})
+
+
 
 
 def view_questions(request):
@@ -163,9 +204,13 @@ def view_questions(request):
     return render(request, 'admin/view_questions.html',{'questions':filter})
 
 
+
+
 def view_chapters(request):
     chapters = Chapter.objects.all()
     return render(request, 'admin/view_chapters.html',{'chapters':chapters})
+
+
 
 
 def edit_exam(request, pk):
@@ -177,6 +222,8 @@ def edit_exam(request, pk):
     return render(request, 'admin/edit_exam.html', {'exam_form':exam_form})
 
 
+
+
 def edit_question(request, pk):
     question = Question.objects.get(pk=pk)
     question_form = QuestionForm(request.POST or None, instance=question)
@@ -184,6 +231,7 @@ def edit_question(request, pk):
         question_form.save()
         return redirect('view_questions')
     return render(request, 'admin/edit_question.html', {'question_form':question_form})
+
 
 
 def edit_chapter(request, pk):
@@ -196,14 +244,21 @@ def edit_chapter(request, pk):
     return render(request, 'admin/edit_chapter.html', {'chapter_form':chapter_form})
 
 
+
+
 def students_results(request):
     filter = ResultFilter(request.GET, Result.objects.all().exclude(student__is_superuser=False))
     return render(request, 'admin/students_results.html',{'results':filter})
+
+
+
 
 def news(request):
     news=News.objects.all()
     chapters = Chapter.objects.all()
     return render(request, 'core/news.html',{'news':news,'chapters':chapters})
+
+
 
 
 def news_details(request, id):

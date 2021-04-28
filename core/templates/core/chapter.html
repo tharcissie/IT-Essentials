@@ -1,11 +1,13 @@
-{% extends "index.html" %} {% block container %}
+{% extends "index.html" %}
+{% load static %}
+ {% block container %}
 
 <section class="page-header">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-8">
                 <div class="title-block">
-                    <h1>Chapter {{chapter.id}} - {{chapter.name}}</h1>
+                    <h1>{{chapter.name}}</h1>
                 </div>
             </div>
         </div>
@@ -20,13 +22,15 @@
                     <div class="single-post-content">
                         {{chapter.content}}
                     </div>
-                    <div class="author">
+                    <hr>
+                    {% if exam %}
                         <div class="author-info">
                             <p>
-                                <a href="{% url 'take_exam' chapter.id %}"><i class="far fa-file-alt "></i>Take The Exam</a>
+                                <a href="{% url 'take_exam' chapter.id %}"><i class="far fa-file-alt "></i>Take The
+                                    Exam</a>
                             </p>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
 
             </div>
@@ -36,8 +40,9 @@
                         <h4 class="widget-title ">Chapters</h4>
                         <ul>
                             {% for chapter in chapters %}
-                            <li class="cat-item "><a href="{% url 'chapter' chapter.id %}"><i class="fa fa-angle-right "></i>Chapter {{chapter.id}} - {{chapter.name}}</a><i> 
-                                {% endfor %}
+                            <li class="cat-item "><a href="{% url 'chapter' chapter.id %}"><i
+                                        class="fa fa-angle-right "></i>{{chapter.name}}</a><i>
+                                    {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -45,5 +50,85 @@
         </div>
     </div>
 </div>
+
+
+<div class="row">
+
+<div class="col-lg-3 col-sm-6 py-3">
+<!-- card -->
+<div class="card h-100">
+    <div class="card-img">
+        <img src="https://placeimg.com/500/300/nature" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+    </div>
+    <div class="card-img-overlay">
+        <div class="card bg-inverse card-inverse p-2">
+            <h6 class="card-title text-uppercase mb-0">Chapter1 - Computer essential fundamentals
+                
+            </h6>
+        </div>
+    </div>
+    
+</div>
+<!-- card -->
+</div>
+
+<div class="col-lg-3 col-sm-6 py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="{% static 'assets/images/course/course-1.jpg' %}" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">Two
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+<div class="col-lg-3 col-sm-6 mx-auto py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="https://placeimg.com/500/300/arch" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">
+                    Trois
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+<div class="col-lg-3 col-sm-6 mx-auto py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="https://placeimg.com/500/300/people" class="grayscale img-fluid mx-auto d-block"
+                alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">Four
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+</div>
+<!-- /row -->
 
 {% endblock container %}

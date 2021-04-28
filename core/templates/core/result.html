@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-xl-8">
                 <div class="title-block">
-                    <h1>Exam {{exam.chapter.id}} - {{exam.chapter}} Marks</h1>
+                    <h1>Your Results</h1>
                 </div>
             </div>
         </div>
@@ -17,35 +17,26 @@
             <div class="col-lg-8 col-xl-8">
                 <div class="post-single">
                     {% if result %}
-
                     {% for result in result %}
                     Done on: {{result.date}}
                     <h3>Marks: {{result.marks}}</h3>
                     {% endfor %}
-                    <table class="table table-sm table-striped">
-                        <thead>
-                            <tr>
-                                {% for question in questions %}
-                                <th>{{question.name}} {{question.score}}pt </th>
-                                {% endfor %}
-                            </tr>
-                        </thead>
-                        <tr>
-                            {% for question in questions %}
-                            <td>Answer1: {{question.answer1}} <br>
-                                Answer2: {{question.answer2}} <br>
-                                Answer3: {{question.answer3}} <br>
-                                Answer4: {{question.answer4}} <br>
-                                Answer5: {{question.answer5}} <br> <br><h6>Real Answer</h6>
-                                {{question.answers}}</td>
-                            {% endfor %}
-                        </tr>
-                    </table>
-
+                    {% for question in questions %}
+                  <h6> <b> {{question.name}} - {{question.score}}pts </b></h6>
+                    Answer1: {{question.answer1}} <br>
+                    Answer2: {{question.answer2}} <br>
+                    Answer3: {{question.answer3}} <br>
+                    Answer4: {{question.answer4}} <br>
+                    Answer5: {{question.answer5}} <br><br>
+                    <h6>Real Answer</h6>
+                    <strong>{{question.answers}}</strong>
+                    <hr>
+                    {% endfor %}
 
                     {% else %}
                     <h3>You Haven't Taken The Exam Yet</h3>
                     {% endif %}
+                    <div class="page-wrapper"></div>
                 </div>
             </div>
 
@@ -56,7 +47,7 @@
                         <ul>
                             {% for exam in exams %}
                             <li class="cat-item "><a href="{% url 'take_exam' exam.id%}"><i
-                                        class="fa fa-angle-right "></i>Exam {{exam.chapter.id}} -
+                                        class="fa fa-angle-right "></i>
                                     {{exam.chapter}}</a><i>
                                     {% endfor %}
                         </ul>
@@ -66,5 +57,6 @@
         </div>
     </div>
 </div>
+
 
 {% endblock container %}

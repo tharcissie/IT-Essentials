@@ -1,0 +1,21 @@
+{% extends "index.html" %} {% block container %}
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    {% for result in result %}
+                    <p> Done on: {{result.date}}</p>
+                    <h1>Your Result: {{result.marks}} Marks</h1>
+                    {% endfor %}
+                    <hr>
+                    <a href="{% url 'homepage' %}" class="btn btn-info">Back Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper"></div>
+
+{% endblock container %}
