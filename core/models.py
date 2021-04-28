@@ -37,7 +37,7 @@ class UserProfileManager(BaseUserManager):
 class StudentProfile(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, max_length=30)
     name = models.CharField(max_length=250)
-    profile_image = models.ImageField(upload_to='profile_images')
+    profile_image = models.ImageField(upload_to='profile_images',null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     date_joined = models.DateTimeField(default=timezone.now)

@@ -24,7 +24,6 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view(template_name='core/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     
-    # path('exam/<int:id>', exam, name='exam'),
 
     path('add-chapter', add_chapter, name='add_chapter'),
     path('add-exam', add_exam, name='add_exam'),
