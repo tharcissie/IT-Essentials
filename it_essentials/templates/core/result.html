@@ -1,0 +1,78 @@
+{% extends "index.html" %} 
+{% block container %}
+
+<style>
+    .correct-ans{
+        margin-bottom:0px !important;
+        margin-top: 25px;
+    }
+    .ans{
+        color:#14e214  !important;
+    }
+    .quest{
+        text-transform:capitalize;
+    }
+    .post-single p{
+        margin:0px;
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>{{exam.chapter}} Test Results</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    {% if result %}
+
+                    {% for question in questions %}
+                        <h6 class="quest"> <b> {{question.name}} - {{question.score}}pts </b></h6>
+                        <p>Answer 1: {{question.answer1}}</p>
+                        <p>Answer 2: {{question.answer2}}</p>
+                        <p>Answer 3: {{question.answer3}}</p>
+                        <p>Answer 4: {{question.answer4}}</p>
+                        <p>Answer 5: {{question.answer5}}</p>
+                        <h6 class="correct-ans">Correct Answer</h6>
+                        <span class="ans"><strong>{{question.answers}}</strong></span>
+                        <hr>
+                    {% endfor %}
+
+                    {% else %}
+                        <h3>You Haven't Taken The Exam Yet</h3>
+                    {% endif %}
+                    <div class="page-wrapper"></div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-xl-4 ">
+                <div class="blog-sidebar mt-5 mt-lg-0 ">
+                    <div class="widget widget_categories ">
+                        <h4 class="widget-title ">Other Tests</h4>
+                        <ul>
+                            {% for exam in exams %}
+                                <li class="cat-item ">
+                                    <a href="{% url 'take_exam' exam.id%}">
+                                        <i class="fa fa-angle-right "></i>{{exam.chapter}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock container %}

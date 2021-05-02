@@ -1,0 +1,41 @@
+{% extends "index.html" %} {% load static %} {% block container %}
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>IT-Essential-Course</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-padding course">
+    <div class="container">
+        <h3>Chapters</h3>
+        <div class="row">
+            {% for chapter in chapters %}
+            <div class="col-lg-3 col-sm-6 py-3">
+                <a href="{% url 'chapter' chapter.id %}">
+                    <div class="card h-100">
+                        <div class="card-img">
+                            <img src="{{chapter.cover_image.url}}" class="grayscale img-fluid mx-auto d-block">
+                        </div>
+                        <div class="card-img-overlay">
+                            <div class="card bg-inverse card-inverse p-2">
+                                <h6 class="card-title text-uppercase mb-0">{{chapter.name}}
+                                </h6>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock container %}

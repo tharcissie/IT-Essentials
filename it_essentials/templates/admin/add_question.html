@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<style>
+    .btn-save{
+        margin-top: 20px !important;
+    }
+</style>
+
+<section class="content-header">
+    <h1>Add Question</h1>
+    <ol class="breadcrumb">
+        <li class="active"><a href="{% url 'add_question' %}"><i class="fa fa-dashboard"></i> Add Question</a></li>
+    </ol>
+</section>
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12 col-xl-10">
+            <div class="card">
+                <div class="card-block">
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Select Test</label>
+                                {{question_form.test}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Question Marks</label>
+                                {{question_form.score}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Description</label>
+                                {{question_form.name}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Answer 1</label>
+                                {{question_form.answer1}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Answer 2</label>
+                                {{question_form.answer2}}
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Answer 3</label>
+                                {{question_form.answer3}}
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Answer 4</label>
+                                {{question_form.answer4}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Answer 5</label>
+                                {{question_form.answer5}}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-5">
+                                <label>Select Real Answer</label>
+                                {{question_form.answers}}
+                            </div>
+                        </div>    
+                        <div class="form-group">
+                            <div class="col-md-10 btn-save">
+                                <button type="submit" class="btn btn-primary m-b-0">SAVE</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+	const test = document.getElementById('id_test');
+	test.className = 'form-control';
+
+	const score = document.getElementById('id_score');
+	score.className = 'form-control';
+	score.placeholder = 'Enter Question Marks';
+
+	const name = document.getElementById('id_name');
+	name.className = 'form-control';
+	name.placeholder = 'Type in the question description';
+
+    const answer1 = document.getElementById('id_answer1');
+	answer1.className = 'form-control';
+	answer1.placeholder = 'Type in the answer option 1';
+
+    const answer2 = document.getElementById('id_answer2');
+	answer2.className = 'form-control';
+	answer2.placeholder = 'Type in the answer option 2';
+
+    const answer3 = document.getElementById('id_answer3');
+	answer3.className = 'form-control';
+	answer3.placeholder = 'Type in the answer option 3';
+
+    const answer4 = document.getElementById('id_answer4');
+	answer4.className = 'form-control';
+	answer4.placeholder = 'Type in the answer option 4';
+
+    const answer5 = document.getElementById('id_answer5');
+	answer5.className = 'form-control';
+	answer5.placeholder = 'Type in the answer option 5';
+
+    const answers = document.getElementById('id_answers');
+	answers.className = 'form-control';
+</script>
+
+
+{% endblock  %}

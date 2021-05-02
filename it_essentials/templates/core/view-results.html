@@ -1,0 +1,44 @@
+{% extends "index.html" %} 
+{% block container %} 
+<style>
+    .no-exam{
+        text-align: center;
+        margin: 90px 0px;
+        font-size: 24px;
+        font-weight: 500;
+        color: #303b4a;
+    }
+</style>
+
+<div class="container p-5">
+    <h4 class="text-center p-4">Results</h4>
+
+    {% if results %}
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>Test Name</th>
+                    <th>Marks</th>
+                    <th>Done on</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{result.exam}}</td>
+                        <td>{{result.marks}}</td>
+                        <td>{{result.date}}</td>
+                    </tr>
+                {% endfor %}
+            <tbody>
+        </table>
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <p class="no-exam">You didn't take the test</p>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+ {% endblock %}

@@ -1,0 +1,54 @@
+{% extends "index.html" %} {% block container %}
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>{{exam.chapter}} Test</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    <div class="single-post-content">
+                        <h5 class="title"> Number of Questions: {{number_of_questions}}</h5>
+                        <h5 class="title"> Test Marks: {{total_marks}}</h5>
+                        <h5 class="title"> Chapter Name: {{exam.chapter}}</h5>
+                        <h5 class="title"> Attempts Allowed: 1</h5>
+                    </div>
+                    <a class="btn btn-main btn-block" href=" {% url 'start-exam' exam.id  %}">Start Test</a>
+                </div>
+
+            </div>
+            {% if exams %}
+                <div class="col-lg-4 col-xl-4 ">
+                    <div class="blog-sidebar mt-5 mt-lg-0 ">
+                        <div class="widget widget_categories ">
+                            <h4 class="widget-title ">Other Tests</h4>
+                            <ul>
+                                {% for exam in exams %}
+                                    <li class="cat-item ">
+                                        <a href="{% url 'take_exam' exam.id%}">
+                                            <i class="fa fa-angle-right "></i>
+                                            {{exam.chapter}} Test
+                                        </a>
+                                            
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock container %}

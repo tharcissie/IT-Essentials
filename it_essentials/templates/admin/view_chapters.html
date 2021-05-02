@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+<section class="content-header">
+    <h1>
+    Chapters
+    </h1>
+    <ol class="breadcrumb">
+    <li class="active"><a href="{% url 'view_chapters' %}"><i class="fa fa-dashboard"></i> Chapters</a></li>
+    </ol>
+</section>
+
+<section class="content container-fluid">
+
+
+    <table id="example" class="table table-striped table-bordered nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Chapter name</th>
+                <th>Description</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for i in chapters %}
+            <tr>
+                <td>{{i.name}}</td>
+                <td>{{i.snippet}}</td>
+                <td>{{i.created}}</td>
+                <td>{{i.created}}</td>
+                <td><a href="{% url 'edit_chapter' i.id %}">Modify</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</section>
+
+{% endblock %}
+

@@ -1,0 +1,160 @@
+{% extends "index.html" %}
+{% load static %}
+ {% block container %}
+
+<style>
+    .take-test{
+        float:right;
+    }
+    .download-img{
+        width: 25px;
+        height: 25px;
+        margin-bottom: 0px !important;
+        margin-right: 11px;
+    }
+    .fa-file-alt{
+        margin-right:11px;
+        width: 25px;
+        height: 25px;
+    }
+</style>
+
+<section class="page-header">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="title-block">
+                    <h1>{{chapter.name}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page-wrapper">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-xl-8">
+                <div class="post-single">
+                    <div class="single-post-content">
+                        {{chapter.content}}
+                    </div>
+                    <hr>
+                        <div class="author-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a href="{{chapter.file_to_download.url}}" download><img src="{% static 'img/download.png' %}" class="download-img"/>Download Chapter Material</a>
+                                </div>
+                                <div class="col-md-6">
+                                    {% if exam %}
+                                        <a href="{% url 'take_exam' chapter.id %}" class="take-test"><i class="far fa-file-alt "></i>Take The Test</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+            {% if chapters %}
+            <div class="col-lg-4 col-xl-4 ">
+                <div class="blog-sidebar mt-5 mt-lg-0 ">
+                    <div class="widget widget_categories ">
+                        <h4 class="widget-title">Other Chapters</h4>
+                        <ul>
+                            {% for chapter in chapters %}
+                                <li class="cat-item ">
+                                    <a href="{% url 'chapter' chapter.id %}">
+                                        <i class="fa fa-angle-right "></i>{{chapter.name}}
+                                    </a>
+                                </li>  
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+
+<div class="col-lg-3 col-sm-6 py-3">
+<!-- card -->
+<div class="card h-100">
+    <div class="card-img">
+        <img src="https://placeimg.com/500/300/nature" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+    </div>
+    <div class="card-img-overlay">
+        <div class="card bg-inverse card-inverse p-2">
+            <h6 class="card-title text-uppercase mb-0">Chapter1 - Computer essential fundamentals
+                
+            </h6>
+        </div>
+    </div>
+    
+</div>
+<!-- card -->
+</div>
+
+<div class="col-lg-3 col-sm-6 py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="{% static 'assets/images/course/course-1.jpg' %}" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">Two
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+<div class="col-lg-3 col-sm-6 mx-auto py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="https://placeimg.com/500/300/arch" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">
+                    Trois
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+<div class="col-lg-3 col-sm-6 mx-auto py-3">
+
+    <!-- card -->
+    <div class="card h-100">
+        <div class="card-img">
+            <img src="https://placeimg.com/500/300/people" class="grayscale img-fluid mx-auto d-block"
+                alt="card image 1">
+        </div>
+        <div class="card-img-overlay">
+            <div class="card bg-inverse card-inverse p-2">
+                <h6 class="card-title text-uppercase mb-0">Four
+                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+    <!-- card -->
+
+</div>
+</div>
+<!-- /row -->
+
+{% endblock container %}
