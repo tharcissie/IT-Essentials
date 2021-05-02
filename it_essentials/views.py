@@ -7,8 +7,8 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 from .filters import QuestionFilter, ResultFilter
-
-
+from django.utils import timezone
+import datetime
 
 
 
@@ -113,6 +113,11 @@ def done_test(request):
     return render(request, 'core/done-test.html')
 
 
+@login_required(login_url='login')
+def profile(request):
+    return render(request ,'core/profile.html')
+
+
 def news(request):
     news=News.objects.all()
     chapters = Chapter.objects.all()
@@ -145,7 +150,25 @@ def account(request):
     tests = Exam.objects.all().count()
     questions = Question.objects.all().count()
 
-    return render(request, 'admin/account.html', {'students_list':students_list,'students':students,'chapters':chapters, 'tests':tests,'questions':questions})
+    now = datetime.datetime.now()
+    curr = str(now.year) + "-" + str(now.month) + "-01"
+    curr_year = int(now.year)
+    curr_month = int(now.month)
+    dataArray = []
+    for i in range(0, 6):
+        if(curr_month-i <= 0):
+            curr_year -= 1
+            curr_month += 12
+        curr_array = dict()
+        curr_array["year"] = curr_year
+        curr_array["month"] = curr_month - i -1
+        if(curr_month - i != 12):
+            curr_array["count"] = StudentProfile.objects.exclude(is_superuser=True).filter(date_joined__range = (datetime.date(curr_year, curr_month-i, 1), datetime.date(curr_year, curr_month-i + 1, 1))).count()
+        else:
+            curr_array["count"] = StudentProfile.objects.exclude(is_superuser=True).filter(date_joined__range = (datetime.date(curr_year, 12, 1), datetime.date(curr_year+1, 1, 1))).count()
+        dataArray.append(curr_array)
+
+    return render(request, 'admin/account.html', {'students_list':students_list,'students':students,'chapters':chapters, 'tests':tests,'questions':questions,'dataArray':dataArray})
 
 
 @staff_member_required

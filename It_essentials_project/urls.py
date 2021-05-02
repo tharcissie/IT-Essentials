@@ -25,6 +25,8 @@ urlpatterns = [
     path('my-result/<int:id>', after_exam, name='after_exam'),
     path('test-results/<int:id>', results,name='test_results'),
     path('done-test', done_test,name='done_test'),
+    path('profile', profile,name='profile'),
+    path('user-change-password',auth_views.PasswordChangeView.as_view(template_name='core/change_password.html',success_url = '/'), name='user_change_password'),
 
     path('news', news, name='news'),
     path('news/<int:id>', news_details, name='news_details'),

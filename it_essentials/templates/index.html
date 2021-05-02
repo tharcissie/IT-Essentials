@@ -1,25 +1,18 @@
 <!DOCTYPE html>
 <html lang="zxx">
-<!-- Mirrored from themeturn.com/tf-db/eduhash/theme/course-grid-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Apr 2021 13:21:30 GMT -->
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     {% load static %}
-    <title>IT Essentials</title>
+    <title>IT Essentials Course</title>
 
-    <!-- Mobile Specific Meta-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- bootstrap.min css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/bootstrap/bootstrap.css' %}">
-    <!-- Iconfont Css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/fontawesome/css/all.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/flaticon/flaticon.css' %}">
-    <!-- animate.css -->
     <link rel="stylesheet" href="{% static 'assets/vendors/animate-css/animate.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendors/owl/assets/owl.theme.default.min.css' %}">
-
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
 
@@ -28,12 +21,15 @@
             width: 70px;
             height: 70px;
         }
+        .right{
+            color: white;
+            padding-bottom: 60px;
+        }
     </style>
 </head>
 
 <body id="top-header">
     <header>
-        <!-- Main Menu Start -->
         <div class="site-navigation main_menu menu-style-2" id="mainmenu-area">
             <nav class="navbar navbar-expand-lg">
                 <div class="container">
@@ -41,14 +37,11 @@
                         <img src="{% static 'assets/images/dark-logo.png' %}" alt="Eduhash" class="img-fluid">
                     </a>
 
-                    <!-- Toggler -->
-
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
                         aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="fa fa-bars"></span>
                     </button>
 
-                    <!-- Collapse -->
                     <div class="collapse navbar-collapse" id="navbarMenu">
                         <ul class="navbar-nav mx-auto">
                             <li class="nav-item ">
@@ -73,15 +66,15 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbar3">
                                     <a class="dropdown-item " href="{% url 'view_result' %}">
-                                        <i class="fas fa-sign-out-alt"></i>&nbsp;
+                                        <i class="fas fa-poll-h"></i>&nbsp;
                                         &nbsp; My Results
                                     </a>
-                                    <a class="dropdown-item " href="{% url 'logout' %}">
-                                        <i class="fas fa-sign-out-alt"></i>&nbsp;
+                                    <a class="dropdown-item " href="{% url 'profile' %}">
+                                        <i class="far fa-user-circle"></i>&nbsp;
                                         &nbsp; Profile
                                     </a>
-                                    <a class="dropdown-item " href="{% url 'logout' %}">
-                                        <i class="fas fa-sign-out-alt"></i>&nbsp;
+                                    <a class="dropdown-item " href="{% url 'user_change_password' %}">
+                                        <i class="fas fa-tools"></i>&nbsp;
                                         &nbsp; Change Password
                                     </a>
                                     <a class="dropdown-item " href="{% url 'logout' %}">
@@ -97,55 +90,38 @@
                             <a href="{% url 'signup' %}" class="btn btn-main btn-sm">sign up</a>
                         </div>
                         {% endif %}
-                    </div> <!-- / .navbar-collapse -->
-                </div> <!-- / .container -->
+                    </div> 
+                </div> 
             </nav>
         </div>
     </header>
     {% block container %}
 
     {% endblock container %}
-    <!-- Footer section start -->
     <section class="footer-2">
         <div class="container">
             <div class="copyright text-left text-center">
-                <p>© Copyright IT-Essential All rights reserved.</a> </p>
+                <p class="right">© Copyright 2021-IT-Essentials Course-Seada. All rights reserved.</a> </p>
             </div>
         </div>
     </section>
-    <!-- Footer section End -->
 
     <div class="fixed-btm-top">
         <a href="#top-header" class="js-scroll-trigger scroll-to-top"><i class="fa fa-angle-up"></i></a>
     </div>
 
 
-
-
-    <!-- 
-    Essential Scripts
-    =====================================-->
-
-    <!-- Main jQuery -->
-    <script data-cfasync="false"
-        src="http://themeturn.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script data-cfasync="false" src="http://themeturn.com/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script src="assets/vendors/jquery/jquery.js"></script>
-    <!-- Bootstrap 4.5 -->
     <script src="{% static 'assets/vendors/bootstrap/bootstrap.js' %}"></script>
-    <!-- Counterup -->
     <script src="{% static 'assets/vendors/counterup/waypoint.js' %}"></script>
     <script src="{% static 'assets/vendors/counterup/jquery.counterup.min.js' %}"></script>
     <script src="{% static 'assets/vendors/jquery.isotope.js' %}"></script>
     <script src="{% static 'assets/vendors/imagesloaded.html' %}"></script>
     <script src="{% static 'assets/vendors/owl/owl.carousel.min.js' %}"></script>
     <script src="{% static 'assets/vendors/google-map/map.js' %}"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&amp;callback=initMap"></script>
     <script src="{% static 'assets/js/script.js' %}"></script>
 
-
 </body>
-
-<!-- Mirrored from themeturn.com/tf-db/eduhash/theme/course-grid-2.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 19 Apr 2021 13:21:30 GMT -->
-
 </html>
