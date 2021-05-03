@@ -1,5 +1,9 @@
 {% extends "index.html" %} {% load static %} {% block container %}
-
+<style>
+    .card-img-top {
+        height: 20vh;
+    }
+</style>
 <section class="page-header">
     <div class="container">
         <div class="row justify-content-center">
@@ -17,22 +21,15 @@
         <h3>Chapters</h3>
         <div class="row">
             {% for chapter in chapters %}
-            <div class="col-lg-3 col-sm-6 py-3">
-                <a href="{% url 'chapter' chapter.id %}">
-                    <div class="card h-100">
-                        <div class="card-img">
-                            <img src="{{chapter.cover_image.url}}" class="grayscale img-fluid mx-auto d-block">
-                        </div>
-                        <div class="card-img-overlay">
-                            <div class="card bg-inverse card-inverse p-2">
-                                <h6 class="card-title text-uppercase mb-0">{{chapter.name}}
-                                </h6>
-                            </div>
-                        </div>
+            <a href="{% url 'chapter' chapter.id %}">
+                <div class="card m-2" style="width: 16rem;">
+                    <img class="card-img-top" src="{{chapter.cover_image.url}}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">{{chapter.name}}</h5>
+                        <p class="card-text">{{chapter.snippet}}</p>
                     </div>
-                </a>
-
-            </div>
+                </div>
+            </a>
             {% endfor %}
         </div>
     </div>
