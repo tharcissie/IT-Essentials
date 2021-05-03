@@ -1,7 +1,7 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.contrib import admin
 from it_essentials.views import *
@@ -28,6 +28,8 @@ urlpatterns = [
     path('profile', profile,name='profile'),
     path('user-change-password',auth_views.PasswordChangeView.as_view(template_name='core/change_password.html',success_url = '/'), name='user_change_password'),
 
+    path('add-news', add_news, name='add_news'),
+
     path('news', news, name='news'),
     path('news/<int:id>', news_details, name='news_details'),
 
@@ -45,6 +47,7 @@ urlpatterns = [
     path('account', account, name='account'),
     path('change-password',auth_views.PasswordChangeView.as_view(template_name='admin/change_password.html',success_url = 'account'), name='change_password'),
 
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()

@@ -80,81 +80,20 @@
 
 <div class="row">
 
-<div class="col-lg-3 col-sm-6 py-3">
-<!-- card -->
-<div class="card h-100">
-    <div class="card-img">
-        <img src="https://placeimg.com/500/300/nature" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
-    </div>
-    <div class="card-img-overlay">
-        <div class="card bg-inverse card-inverse p-2">
-            <h6 class="card-title text-uppercase mb-0">Chapter1 - Computer essential fundamentals
-                
-            </h6>
-        </div>
-    </div>
-    
-</div>
-<!-- card -->
-</div>
-
-<div class="col-lg-3 col-sm-6 py-3">
-
-    <!-- card -->
-    <div class="card h-100">
-        <div class="card-img">
-            <img src="{% static 'assets/images/course/course-1.jpg' %}" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
-        </div>
-        <div class="card-img-overlay">
-            <div class="card bg-inverse card-inverse p-2">
-                <h6 class="card-title text-uppercase mb-0">Two
-                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
-                </h6>
+{% for chapter in other_chapters %}
+    <div class="col-lg-3 col-sm-6 py-3">
+        <a href="{% url 'chapter' chapter.id %}">
+            <div class="card m-2" style="width: 19rem;">
+                <img class="card-img-top" src="{{chapter.cover_image.url}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{chapter.name}}</h5>
+                    <p class="card-text">{{chapter.snippet}}</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
-    <!-- card -->
+{% endfor %}
 
 </div>
-<div class="col-lg-3 col-sm-6 mx-auto py-3">
-
-    <!-- card -->
-    <div class="card h-100">
-        <div class="card-img">
-            <img src="https://placeimg.com/500/300/arch" class="grayscale img-fluid mx-auto d-block" alt="card image 1">
-        </div>
-        <div class="card-img-overlay">
-            <div class="card bg-inverse card-inverse p-2">
-                <h6 class="card-title text-uppercase mb-0">
-                    Trois
-                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
-                </h6>
-            </div>
-        </div>
-    </div>
-    <!-- card -->
-
-</div>
-<div class="col-lg-3 col-sm-6 mx-auto py-3">
-
-    <!-- card -->
-    <div class="card h-100">
-        <div class="card-img">
-            <img src="https://placeimg.com/500/300/people" class="grayscale img-fluid mx-auto d-block"
-                alt="card image 1">
-        </div>
-        <div class="card-img-overlay">
-            <div class="card bg-inverse card-inverse p-2">
-                <h6 class="card-title text-uppercase mb-0">Four
-                    <a href="#" class="float-right badge badge-default badge-pill">.</a>
-                </h6>
-            </div>
-        </div>
-    </div>
-    <!-- card -->
-
-</div>
-</div>
-<!-- /row -->
 
 {% endblock container %}

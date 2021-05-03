@@ -9,6 +9,7 @@ pillow = "*"
 django-autoslug = "*"
 django-filter = "*"
 django-crispy-forms = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 

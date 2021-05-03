@@ -17,13 +17,15 @@
         <h3>News</h3>
         <div class="row">
             {% for news in news %}
-            <a href="{% url 'news_details' news.id %}"> <div class="card m-2" style="width: 16rem;">
-                <div class="card-body">
-                  <h5 class="card-title">- {{news.title}}</h5>
-                  <p class="card-text">{{news.snippet}}</p>
-                  <p class="card-text"><i class="fa fa-calendar-alt"></i><small class="text-muted"> Published On {{news.published_date}}</small></p>
-                </div>
-              </div></a>
+                <a href="{% url 'news_details' news.id %}"> 
+                    <div class="card m-2" style="width: 19rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">- {{news.title}}</h5>
+                            <p class="card-text">{{news.snippet}}</p>
+                            <p class="card-text"><i class="fa fa-calendar-alt"></i><small class="text-muted"> Published On {{news.published_date}}</small></p>
+                        </div>
+                    </div>
+                </a>
             {% endfor %}
 
 

@@ -25,7 +25,8 @@ def chapter(request, id):
     chapter = get_object_or_404(Chapter, id=id)
     exam = Exam.objects.all().filter(chapter=chapter)
     chapters = Chapter.objects.exclude(id=chapter.id)
-    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters, 'exam':exam})
+    other_chapters = Chapter.objects.exclude(id=chapter.id)[:4]
+    return render(request, 'core/chapter.html', {'chapter':chapter, 'chapters':chapters, 'other_chapters':other_chapters, 'exam':exam})
 
 
 @login_required(login_url='login')
@@ -169,6 +170,20 @@ def account(request):
         dataArray.append(curr_array)
 
     return render(request, 'admin/account.html', {'students_list':students_list,'students':students,'chapters':chapters, 'tests':tests,'questions':questions,'dataArray':dataArray})
+
+
+
+@staff_member_required
+def add_news(request):
+    form = NewsForm()
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('view_chapters')
+        else:
+            form = NewsForm()
+    return render(request, 'admin/add_news.html', {'form':form})
 
 
 @staff_member_required

@@ -45,6 +45,11 @@ class ChapterForm(forms.ModelForm):
         fields = ['name','content','cover_image','file_to_download']
 
 
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ['title','content']
+
 
 
 class ExamForm(forms.ModelForm):

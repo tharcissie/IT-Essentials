@@ -40,7 +40,37 @@ INSTALLED_APPS = [
     'it_essentials',
     'django_filters',
     'crispy_forms',
+    'ckeditor', 
+    'ckeditor_uploader'
 ]
+
+
+TAGGIT_CASE_INSENSITIVE = True
+CKEDITOR_UPLOAD_PATH = 'content/ckeditor/' # where the uploaded image by markdown are stored
+CKEDITOR_CONFIGS = {
+    
+    'default': {
+        'toolbar':'Custom',
+        'width':945,
+        'toolbar_Custom':[
+            ['Styles','Format','Bold','Italic','Underline','Strike','SpellChecker','Undo','Redo'],
+            ['Link','Unlink','Anchor'],
+            ['Image','Flash','Table','HorizontalRule'], 
+            ['TextColor','BGColor'],
+            ['Smiley','SpecialChar'],
+            ['Source'],
+            ['CodeSnippet'],
+            ['Youtube'],
+            
+        ],
+
+        'extraPlugins':[['codesnippet'],['youtube'],],
+        
+    }
+}
+
+
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

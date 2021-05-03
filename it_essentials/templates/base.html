@@ -98,6 +98,16 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="active"><a href="{% url 'account' %}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
         <li class="treeview">
+          <a href="#"><i class="fa fa-book"></i> <span>News</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="{% url 'add_news' %}"><i class="fa fa-plus"></i>Add News</a></li>
+          </ul>
+        </li>
+        <li class="treeview">
           <a href="#"><i class="fa fa-book"></i> <span>Chapters</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>

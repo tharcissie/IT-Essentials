@@ -22,7 +22,7 @@
         <div class="row">
             {% for chapter in chapters %}
             <a href="{% url 'chapter' chapter.id %}">
-                <div class="card m-2" style="width: 16rem;">
+                <div class="card m-2" style="width: 19rem;">
                     <img class="card-img-top" src="{{chapter.cover_image.url}}" alt="Card image cap">
                     <div class="card-body">
                         <h5 class="card-title">{{chapter.name}}</h5>
