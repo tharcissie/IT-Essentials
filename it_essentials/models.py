@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.utils import timezone
 from django.conf import settings
 from autoslug import AutoSlugField
-from ckeditor_uploader.fields import RichTextUploadingField
 
 
 
@@ -106,13 +105,8 @@ class Result(models.Model):
 
 class News(models.Model):
     title = models.CharField(max_length=300)
-    content    = RichTextUploadingField(blank=True,
-                                         null=True,
-                                         external_plugin_resources=[(
-                                            
-                                             'youtube',
-                                             '/static/lib/ckeditor_plugins/youtube/',
-                                             'plugin.js')],)
+    content = content = models.TextField()
+
     published_date = models.DateField(auto_now_add=True)
 
     def __str__(self):

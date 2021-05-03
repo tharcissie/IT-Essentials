@@ -10,6 +10,7 @@ django-autoslug = "*"
 django-filter = "*"
 django-crispy-forms = "*"
 django-ckeditor = "*"
+django-widget-tweaks = "*"
 
 [dev-packages]
 

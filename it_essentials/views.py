@@ -180,7 +180,7 @@ def add_news(request):
         form = NewsForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('view_chapters')
+            return redirect('account')
         else:
             form = NewsForm()
     return render(request, 'admin/add_news.html', {'form':form})

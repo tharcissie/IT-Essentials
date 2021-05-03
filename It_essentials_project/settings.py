@@ -39,35 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'it_essentials',
     'django_filters',
-    'crispy_forms',
-    'ckeditor', 
-    'ckeditor_uploader'
+    'crispy_forms'
 ]
 
 
-TAGGIT_CASE_INSENSITIVE = True
-CKEDITOR_UPLOAD_PATH = 'content/ckeditor/' # where the uploaded image by markdown are stored
-CKEDITOR_CONFIGS = {
-    
-    'default': {
-        'toolbar':'Custom',
-        'width':945,
-        'toolbar_Custom':[
-            ['Styles','Format','Bold','Italic','Underline','Strike','SpellChecker','Undo','Redo'],
-            ['Link','Unlink','Anchor'],
-            ['Image','Flash','Table','HorizontalRule'], 
-            ['TextColor','BGColor'],
-            ['Smiley','SpecialChar'],
-            ['Source'],
-            ['CodeSnippet'],
-            ['Youtube'],
-            
-        ],
-
-        'extraPlugins':[['codesnippet'],['youtube'],],
-        
-    }
-}
 
 
 
@@ -154,8 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'staticfiles'),)
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
+STATIC_ROOT = (os.path.join(BASE_DIR, 'staticfiles'))
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

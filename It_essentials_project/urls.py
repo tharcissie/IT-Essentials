@@ -47,7 +47,6 @@ urlpatterns = [
     path('account', account, name='account'),
     path('change-password',auth_views.PasswordChangeView.as_view(template_name='admin/change_password.html',success_url = 'account'), name='change_password'),
 
-    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
