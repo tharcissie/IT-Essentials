@@ -1,6 +1,13 @@
 {% extends 'base.html' %}
 
 {% block container %}
+<style>
+    .other-field{
+        color: #222d32;
+        font-size: 17px;
+        font-weight:900;
+    }
+</style>
 
 <section class="content-header">
     <h1>
@@ -32,11 +39,13 @@
             
                         <div class="form-group row">
                             <div class="col-sm-10">
+                                <span class="other-field">Chapter Cover Image</span>
                                 <input type="file"  name="cover_image" class="form-control" required>
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-10">
+                                <span class="other-field">Chapter File</span>
                                 <input type="file" name="file_to_download" class="form-control" required>
                             </div>
                         </div>

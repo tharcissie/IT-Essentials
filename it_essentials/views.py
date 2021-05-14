@@ -9,7 +9,9 @@ from django.contrib.admin.views.decorators import staff_member_required
 from .filters import QuestionFilter, ResultFilter
 from django.utils import timezone
 import datetime
-
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 
@@ -33,8 +35,8 @@ def chapter(request, id):
 def take_test(request, id):
     exam = Exam.objects.get(chapter=id)
     exams = Exam.objects.exclude(id=exam.id)
-    number_of_questions = Question.objects.all().filter(exam=exam).count()
-    questions = Question.objects.filter(exam=exam)
+    number_of_questions = Question.objects.all().filter(test=exam).count()
+    questions = Question.objects.filter(test=exam)
     total_marks = 0
 
     for question in questions:
@@ -48,10 +50,10 @@ def start_test(request, id):
     if request.user.is_authenticated:
         exam = Exam.objects.get(id=id)
 
-        result = Result.objects.filter(exam=exam.id).filter(student=request.user.id).exists()
+        result = Result.objects.filter(test=exam.id).filter(student=request.user.id).exists()
         if result:
             return redirect('done_test')
-        questions = Question.objects.filter(exam=exam)
+        questions = Question.objects.filter(test=exam)
         if request.method=='POST':
             pass
         response = render(request, 'core/start_exam.html',{'exam':exam, 'questions':questions})
@@ -67,7 +69,7 @@ def calculate_marks(request):
         exam = Exam.objects.get(id=exam_id)
         
         total_marks=0
-        questions = Question.objects.all().filter(exam=exam)
+        questions = Question.objects.all().filter(test=exam)
         for i in range(len(questions)):
             
             selected_ans = request.COOKIES.get(str(i+1))
@@ -77,7 +79,7 @@ def calculate_marks(request):
         student = StudentProfile.objects.get(id=request.user.id)
         result = Result()
         result.marks=total_marks
-        result.exam=exam
+        result.test=exam
         result.student=student
         result.save()
 
@@ -98,8 +100,8 @@ def results(request, id):
     exam = Exam.objects.get(id=id)
     exams  = Exam.objects.exclude(id=exam.id)
     student = request.user.id
-    questions = Question.objects.all().filter(exam=exam)
-    result = Result.objects.all().filter(exam=exam).filter(student=student)
+    questions = Question.objects.all().filter(test=exam)
+    result = Result.objects.all().filter(test=exam).filter(student=student)
     return render(request,'core/result.html',{'result':result,'exams':exams,'exam':exam,'questions':questions})
 
 
@@ -117,6 +119,22 @@ def done_test(request):
 @login_required(login_url='login')
 def profile(request):
     return render(request ,'core/profile.html')
+
+@login_required(login_url='login')
+def user_change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password has been updated successfully !')
+            return redirect('user_change_password')
+        else:
+            messages.warning(request, 'Please correct the error below to continue !')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'core/change_password.html',{'form':form})
+
 
 
 def news(request):
@@ -136,8 +154,14 @@ def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST or None,files=request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('login')
+            pass1 =  form.cleaned_data.get('password1')
+            pass2 =  form.cleaned_data.get('password2')
+
+            if pass1 == pass2:
+                form.save()
+                return redirect('login')
+            else:
+                return render(request, 'core/signup.html', {'form':form, 'error':"Password didn't match !!"})
     form = SignupForm()
 
     return render(request, 'core/signup.html',{'form':form})
@@ -281,7 +305,7 @@ def edit_chapter(request, pk):
 
 @staff_member_required
 def students_results(request):
-    results = Result.objects.all().exclude(student__is_superuser=False)
+    results = Result.objects.all().exclude(student__is_superuser=True)
     return render(request, 'admin/students_results.html',{'results':results})
 
 
@@ -289,3 +313,19 @@ def students_results(request):
 def registered_students(request):
     students = StudentProfile.objects.exclude(is_superuser=True)
     return render(request, 'admin/registered_students.html', {'students':students})
+
+
+@staff_member_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password has been updated successfully !')
+            return redirect('change_password')
+        else:
+            messages.warning(request, 'Please correct the error below to continue !')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'admin/change_password.html',{'form':form})

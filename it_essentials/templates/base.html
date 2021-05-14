@@ -24,34 +24,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{% static "font-awesome.css" %}">
 
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition skin-purple sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">
 
     <a href="{% url 'account' %}" class="logo">
-      <span class="logo-mini"><b><img src="{% static "logo.png" %}" alt="My image" style="width:45px;height:45px;"></b></span>
-      <span class="logo-lg"><b><img src="{% static "logo.png" %}" alt="My image" style="float:left;width:45px;height:45px;"> Online</b> Exam</span>
+      <h4>IT Essentials Course Test</h4>
     </a>
 
     <nav class="navbar navbar-static-top" role="navigation">
@@ -169,7 +149,7 @@ desired effect
     <div class="pull-right hidden-xs">
      IT Essentials Course
     </div>
-    <strong>Copyright &copy; 2021 Seada .</strong> All rights reserved.
+    <strong>Copyright &copy; 2021 SEADA SEID ESHETU  .</strong> All rights reserved.
   </footer>
 </div>
 <script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
@@ -178,8 +158,7 @@ desired effect
 <script src="{% static "charts/loader.js" %}"></script>
 
 
-<!--<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+
 <script src="{% static "jquery.dataTables.min.js" %}"></script>
 <script src="{% static "dataTables.bootstrap.min.js" %}"></script>
 <script src="{% static "dataTables.responsive.min.js" %}"></script>
@@ -209,7 +188,7 @@ desired effect
     ]);
 
     var options = {
-      //title: 'Users Registered per Exam'
+      
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));

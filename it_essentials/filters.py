@@ -10,4 +10,4 @@ class QuestionFilter(django_filters.FilterSet):
 class ResultFilter(django_filters.FilterSet):
     class Meta:
         model = Result
-        fields = ['student','exam']
+        fields = ['student','test']

@@ -1,10 +1,11 @@
 from django import forms
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
-
+from django.contrib.auth.forms import AuthenticationForm
 from .models import *
 
-    
+
+
 
 class SignupForm(forms.ModelForm):
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class':'form-control'}))
@@ -55,7 +56,7 @@ class NewsForm(forms.ModelForm):
 class ExamForm(forms.ModelForm):
     class Meta:
         model = Exam
-        fields = ['chapter','question_number','marks']
+        fields = ['chapter']
 
 class QuestionForm(forms.ModelForm):
     class Meta:

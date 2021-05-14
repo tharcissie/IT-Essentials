@@ -1,6 +1,17 @@
 {% extends "index.html" %}
-
+{% load static %}
 {% block container %}
+
+<style>
+    .error-login{
+        text-align:center;
+        color:red;
+    }
+    .error-image{
+        height: 60px;
+        width: 60px;
+    }
+</style>
 
     <main class="site-main page-wrapper woocommerce single single-product">
         <section class="space-3">
@@ -9,7 +20,13 @@
                     <div class="col-md-6">
                         <div class="woocommerce-notices-wrapper"></div>
                         <h2 class="font-weight-bold mb-4">Login</h2>
-                        <form class="woocommerce-form woocommerce-form-login login" action="{% url 'login' %}" method="post">
+                        {% if form.errors %}
+                            <p class="error-login">The username or password you have entered is invalid
+                                <img src="{% static 'img/error-image.gif' %}" class="error-image" />
+                            </p>
+                        {% else %}
+                        {% endif %}
+                        <form class="woocommerce-form woocommerce-form-login login" method="post">
                             {% csrf_token %}
                             <p class="woocommerce-form-row woocommerce-form-row--wide form-row form-row-wide">
                                 <label for="username">Email address&nbsp;<span class="required">*</span></label>
@@ -31,7 +48,6 @@
                 </div>
             </div>
         </section>
-        <!--shop category end-->
     </main>
 
 

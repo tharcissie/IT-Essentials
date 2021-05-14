@@ -69,8 +69,7 @@ class Chapter(models.Model):
 
 class Exam(models.Model):
     chapter = models.OneToOneField(Chapter, on_delete=models.CASCADE)
-    question_number = models.PositiveIntegerField()
-    marks = models.PositiveIntegerField()
+
 
     def __str__(self):
         return self.chapter.name
@@ -95,7 +94,7 @@ class Question(models.Model):
 
 class Result(models.Model):
     student = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE, related_name='results')
-    exam = models.ForeignKey(Exam,on_delete=models.CASCADE)
+    test = models.ForeignKey(Exam,on_delete=models.CASCADE)
     marks = models.PositiveIntegerField()
     date = models.DateTimeField(auto_now=True)
 

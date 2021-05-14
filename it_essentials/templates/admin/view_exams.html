@@ -16,8 +16,7 @@
         <thead>
             <tr>
                 <th>Chapter name</th>
-                <th>Number of Questions</th>
-                <th>Marks</th>
+
                 <th>Action</th>
             </tr>
         </thead>
@@ -25,8 +24,7 @@
         {% for i in exams %}
             <tr>
                 <td>{{i.chapter}}</td>
-                <td>{{i.question_number}}</td>
-                <td>{{i.marks}}</td>
+
                 <td><a href="{% url 'edit_exam' i.id %}">Modify</a></td>
             </tr>
         {% endfor %}

@@ -26,7 +26,7 @@ urlpatterns = [
     path('test-results/<int:id>', results,name='test_results'),
     path('done-test', done_test,name='done_test'),
     path('profile', profile,name='profile'),
-    path('user-change-password',auth_views.PasswordChangeView.as_view(template_name='core/change_password.html',success_url = '/'), name='user_change_password'),
+    path('user-change-password', user_change_password, name='user_change_password'),
 
     path('add-news', add_news, name='add_news'),
 
@@ -45,7 +45,7 @@ urlpatterns = [
     path('students-results', students_results, name='students_results'),
     path('registered-students', registered_students, name='registered_students'),
     path('account', account, name='account'),
-    path('change-password',auth_views.PasswordChangeView.as_view(template_name='admin/change_password.html',success_url = 'account'), name='change_password'),
+    path('change-password', change_password, name='change_password'),
 
 ]
 if settings.DEBUG:
